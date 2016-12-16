@@ -1,0 +1,183 @@
+= CLARIN-ERIC docker build workflow
+:caution-caption: ☡ CAUTION
+:important-caption: ❗ IMPORTANT
+:note-caption: 🛈 NOTE
+:sectanchors:
+:sectlinks:
+:sectnumlevels: 6
+:sectnums:
+:source-highlighter: pygments
+:tip-caption: 💡 TIP
+:toc-placement: preamble
+:toc:
+:warning-caption: ⚠ WARNING
+
+This project contains all scripts and docker images which are required for the CLARIN-ERIC docker workflow.
+
+== Dependencies
+
+[options="header",cols=",,,m"]
+|===
+| Conditions | Type | Name (URL) | Version constraint
+
+| by necessity
+| software
+| https://www.docker.com/[Docker Compose]
+| ==1.8.0
+
+| by necessity
+| software
+| https://www.docker.com/[Docker Engine]
+| ==1.11.2
+
+| by necessity
+| image
+| https://github.com/gliderlabs/docker-alpine[`gliderlabs/alpine`]
+| ==3.4
+
+| for releases
+| platform
+| https://about.gitlab.[GitLab CI]
+| ==8.10.4
+
+|===
+
+== Goals
+
+Provide a uniform build, test and release workflow, both locally and within the gitlab platform
+which allows customization where needed.
+
+== Installing
+
+Install the build script in your git repo with the following commands:
+
+[source,sh]
+----
+curl https://gitlab.com/CLARIN-ERIC/build-script/repository/archive.tar.gz?ref=1.0.2 | tar xz && \
+ln -s build-script-1.0.2-59dc38fcad48c5f1762f050f8a5b8675e4e4ee50/build.sh build.sh && \
+ln -s build-script-1.0.2-59dc38fcad48c5f1762f050f8a5b8675e4e4ee50/copy_data_noop.sh copy_data.sh
+----
+
+== Upgrading
+
+1. Remove any existing build.sh and copy_data.sh files.
+2. Run the installation instructions
+
+Remove existing files:
+
+[source,sh]
+----
+rm build.sh
+rm copy_data.sh
+----
+
+
+== Customizing
+
+=== Test Runner
+
+The command to run tests can be customized as follows:
+
+1. Create a file: run/run-test.sh.
+2. Add the following content to this file and customise the docker compose command as needed:
+[source,sh]
+----
+#!/usr/bin/bash
+
+set -ex
+#Override this command to do something fance for your project
+#If this file doesn't exist, the defaul command, shown below, is executed.
+docker-compose -f 'docker-compose.yml' up
+----
+
+== To use
+
+[source,sh]
+----
+build.sh [-lt]
+
+  -b, --build      Build docker image
+  -r, --release    Push docker image to registry
+  -t, --test       Execute tests
+
+  -l, --local      Run workflow locally in a local docker container
+  -v, --verbose    Run in verbose mode
+  -f, --force      Force running the build in a fresh environment, requires
+                   internet access to pull dependencies. Otherwise internet
+                   access is only needed for the first pull of the precompiled
+                   build environment image
+  -n, --no-export  Don't export the build artiface, this is used when running
+                   the build workflow locally
+
+  -h, --help       Show help
+----
+
+=== Locally
+==== Building
+
+[source,sh]
+----
+sh build.sh --build --local
+----
+
+==== Testing
+
+[source,sh]
+----
+sh build.sh --test --local
+----
+
+==== Releasing
+
+[source,sh]
+----
+sh build.sh --release --local
+----
+
+=== Integrated in GitLab CI
+
+Add a .gitlab-ci.yml file to your repository with the following content:
+[source,sh]
+----
+image: docker:1.12.1
+services:
+  - docker:1.12.1-dind
+
+stages:
+  - build
+  - test
+  - release
+
+build:
+  artifacts:
+    untracked: true
+  script: timeout -t 180 sh -x ./build.sh --build
+  stage: build
+  tags:
+    - docker
+
+test:
+  artifacts:
+    untracked: true
+  dependencies:
+    - build
+  script: timeout -t 180 sh -x ./build.sh --test
+  stage: test
+  tags:
+    - docker
+
+release:
+  artifacts:
+    untracked: true
+  dependencies:
+    - test
+  only:
+    - tags
+    - triggers
+  script: timeout -t 120 sh -x ./build.sh --release
+  stage: release
+  tags:
+    - docker
+----
+
+

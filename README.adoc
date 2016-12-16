@@ -1,0 +1,83 @@
+= CLARIN vlo-beta image (`docker-vlo-beta`)
+:caution-caption: ☡ CAUTION
+:important-caption: ❗ IMPORTANT
+:note-caption: 🛈 NOTE
+:sectanchors:
+:sectlinks:
+:sectnumlevels: 6
+:sectnums:
+:source-highlighter: pygments
+:tip-caption: 💡 TIP
+:toc-placement: preamble
+:toc:
+:warning-caption: ⚠ WARNING
+
+This project provides a Docker container base image, intended to be used as the basis for other images.
+
+== Dependencies
+
+[options="header",cols=",,,m"]
+|===
+| Conditions | Type | Name (URL) | Version constraint
+
+| by necessity
+| software
+| https://www.docker.com/[Docker Compose]
+| ==1.8.0
+
+| by necessity
+| software
+| https://www.docker.com/[Docker Engine]
+| ==1.12.1
+
+| by necessity
+| image
+| https://github.com/gliderlabs/docker-alpine[`gliderlabs/alpine`]
+| ==3.4
+
+| for Docker Engine interaction
+| software
+| https://www.sudo.ws/[Sudo]
+| >=1.8
+
+| for releases
+| platform
+| https://about.gitlab.[GitLab CI]
+| ==8.10.4
+
+|===
+
+== To build and test
+
+The build, test and release pipeline is specified in the the link:.gitlab-ci.yml[GitLab CI] config file.
+This pipeline or its stages can be run by GitLab.com CI as well as by a self-hosted GitLab instance.
+This is elaborated in the https://about.gitlab.com/gitlab-ci/[GitLab CI docs].
+In addition, the build and test stages can be run be run locally within a bare Docker container, without a GitLab CI pipeline.
+
+NOTE: Please issue all of the following shell statements from within the root directory of this repository.
+
+=== Without a GitLab CI pipeline
+
+[source,sh]
+----
+sh build.sh --local --build
+----
+
+=== Parameters
+
+* SOLR_DATA, specify a custom solr data directory
+* STATSD_PREFIX, specifiy an alternative statsd prefix when sending statistics to metrics.clarin.eu.
+
+## Volumes
+
+* /opt/sitemap, output location of the sitemap generator
+
+## Building
+
+### With access to the CLARIN docker registry
+
+1. Build docker image locally:
+
+```
+make
+```

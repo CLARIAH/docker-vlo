@@ -1,0 +1,26 @@
+image: docker:1.12.2
+services:
+  - docker:1.12.2-dind
+
+stages:
+  - build
+  - release
+
+build:
+  artifacts:
+    untracked: true
+  script: timeout -t 360 sh -x ./build.sh --build
+  stage: build
+  tags:
+    - docker
+
+release:
+  artifacts:
+    untracked: true
+  only:
+    - tags
+    - triggers
+  script: timeout -t 360 sh -x ./build.sh --release
+  stage: release
+  tags:
+    - docker
