@@ -6,7 +6,7 @@ RUN mkdir -p /opt/solr-data
 RUN rm -r /var/lib/tomcat8/webapps/ROOT
 
 
-COPY webapp/<NAME>/ /opt/vlo
+COPY webapp/vlo/ /opt/vlo
 COPY webapp/sitemap-config.properties /opt/vlo/bin/sitemap-generator/config.properties
 COPY webapp/statistics-config.properties /opt/vlo/bin/statistics/config.properties
 COPY webapp/vlo-context.xml /etc/tomcat8/Catalina/localhost/ROOT.xml

@@ -9,7 +9,7 @@ stages:
 build:
   artifacts:
     untracked: true
-  script: timeout -t 360 sh -x ./build.sh --build
+  script: timeout -t 1440 sh -x ./build.sh --build
   stage: build
   tags:
     - docker
@@ -20,7 +20,7 @@ release:
   only:
     - tags
     - triggers
-  script: timeout -t 360 sh -x ./build.sh --release
+  script: timeout -t 1440 sh -x ./build.sh --release
   stage: release
   tags:
     - docker

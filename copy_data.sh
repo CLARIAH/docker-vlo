@@ -11,14 +11,14 @@ init_data () {
 
 #    if [ "${LOCAL}" -eq 0 ]; then
     echo -n "Fetching remote data"
-    cd webapp && \
-    echo $(pwd) && \
-    curl -s -S -J -L -O "${REMOTE_RELEASE_URL}" && \
-    tar -xf *.tar.gz && \
-    cd ${NAME}/war && \
-    sh unpack-wars.sh > /dev/null && \
-    cd ../.. && \
-    cp VloConfig.xml ${NAME}/config && \
+    cd webapp
+    curl -s -S -J -L -O "${REMOTE_RELEASE_URL}"
+    tar -xf *.tar.gz
+    cd ${NAME}/war
+    sh unpack-wars.sh > /dev/null
+    cd ../..
+    cp VloConfig.xml ${NAME}/config
+    mv  ${NAME} vlo
     cd ..
     echo $(pwd)
 
@@ -27,10 +27,10 @@ init_data () {
 }
 
 cleanup_data () {
-    cd image
-    if [ -d "webapp/${NAME}" ]; then
-	    echo "\tRemoving webapp/${NAME}*"
-	    rm -r webapp/${NAME}*
+    if [ -f "webapp/vlo-4.0.2-beta1-Distribution.tar.gz" ]; then
+        rm "webapp/vlo-4.0.2-beta1-Distribution.tar.gz"
     fi
-    cd ..
+    if [ -d "webapp/vlo" ]; then
+	    rm -r webapp/vlo
+    fi
 }
