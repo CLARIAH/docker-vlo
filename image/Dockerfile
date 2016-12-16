@@ -1,4 +1,4 @@
-FROM docker.clarin.eu/tomcat8:1.1.5
+FROM registry.gitlab.com/clarin-eric/docker-tomcat8:1.2.0
 
 ENV JAVA_OPTS="-Dwicket.configuration=deployment -Dsolr.data.dir=/opt/solr-data"
 
