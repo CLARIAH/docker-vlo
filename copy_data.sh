@@ -1,7 +1,7 @@
 #!/bin/bash
 
-REMOTE_RELEASE_URL="https://github.com/clarin-eric/VLO/releases/download/vlo-4.0.2-beta1/vlo-4.0.2-beta1-Distribution.tar.gz"
-NAME="vlo-4.0.2-beta1"
+REMOTE_RELEASE_URL="https://github.com/clarin-eric/VLO/releases/download/vlo-4.1.0-beta1/vlo-4.1.0-beta1-Distribution.tar.gz"
+NAME="vlo-4.1.0-beta1"
 
 init_data () {
     LOCAL=0
@@ -27,8 +27,8 @@ init_data () {
 }
 
 cleanup_data () {
-    if [ -f "webapp/vlo-4.0.2-beta1-Distribution.tar.gz" ]; then
-        rm "webapp/vlo-4.0.2-beta1-Distribution.tar.gz"
+    if [ -f "webapp/vlo-4.1.0-beta1-Distribution.tar.gz" ]; then
+        rm "webapp/vlo-4.1.0-beta1-Distribution.tar.gz"
     fi
     if [ -d "webapp/vlo" ]; then
 	    rm -r webapp/vlo
