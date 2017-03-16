@@ -31,28 +31,34 @@
     <printMapping>false</printMapping>
     
     <!-- leave empty to use default packaged definition -->
-    <facetConceptsFile><!-- use default packaged definition --></facetConceptsFile>
-
+    <facetConceptsFile>file:/srv/VLO-mapping/mapping/facetConcepts.xml</facetConceptsFile>
+    
     <profileSchemaUrl>http://catalog.clarin.eu/ds/ComponentRegistry/rest/registry/1.x/profiles/{PROFILE_ID}/xsd</profileSchemaUrl>
-
+    
     <componentRegistryRESTURL>http://catalog.clarin.eu/ds/ComponentRegistry/rest/registry/1.x/profiles/</componentRegistryRESTURL>
-
+    
     <handleServerUrl>http://hdl.handle.net/</handleServerUrl>
     
-    <nationalProjectMapping>nationalProjectsMapping.xml</nationalProjectMapping>
+    <!-- 
+        Mapping file locations.
+        These can be an absolute URL, absolute file path or packaged resource location.
+        Evaluated in the this order.
+    -->
     
-    <organisationNamesUrl>OrganisationControlledVocabulary.xml</organisationNamesUrl>
+    <nationalProjectMapping>file:/srv/VLO-mapping/uniform-maps/nationalProjectsMapping.xml</nationalProjectMapping> <!-- bundled resource: /uniform-maps/nationalProjectsMapping.xml -->
     
-    <languageNameVariantsUrl>LanguageNameVariantsMap.xml</languageNameVariantsUrl>
+    <organisationNamesUrl>file:/srv/VLO-mapping/uniform-maps/OrganisationControlledVocabulary.xml</organisationNamesUrl> <!-- bundled resource: /uniform-maps/OrganisationControlledVocabulary.xml -->
     
-    <licenseAvailabilityMapUrl>LicenseAvailabilityMap.xml</licenseAvailabilityMapUrl>
+    <languageNameVariantsUrl>file:/srv/VLO-mapping/uniform-maps/LanguageNameVariantsMap.xml</languageNameVariantsUrl> <!-- bundled resource: /uniform-maps/LanguageNameVariantsMap.xml -->
     
-    <resourceClassMapUrl>resourceTypeMap.xml</resourceClassMapUrl>
+    <licenseAvailabilityMapUrl>file:/srv/VLO-mapping/uniform-maps/LicenseAvailabilityMap.xml</licenseAvailabilityMapUrl> <!-- bundled resource: /uniform-maps/LicenseAvailabilityMap.xml -->
     
-    <licenseURIMapUrl>LicenseURIMap.xml</licenseURIMapUrl>
-
+    <resourceClassMapUrl>file:/srv/VLO-mapping/uniform-maps/resourceTypeMap.xml</resourceClassMapUrl> <!-- bundled resource: /uniform-maps/resourceTypeMap.xml -->
+    
+    <licenseURIMapUrl>file:/srv/VLO-mapping/uniform-maps/LicenseURIMap.xml</licenseURIMapUrl> <!-- bundled resource: /uniform-maps/LicenseURIMap.xml -->
+    
     <!-- Fields shown as facets on the search page -->
-    <facetFields>
+    <facetFields>        
         <facetField>languageCode</facetField>
         <facetField>collection</facetField>
         <facetField>resourceClass</facetField>
@@ -74,7 +80,7 @@
         <simpleSearchFacetField>modality</simpleSearchFacetField>
         <simpleSearchFacetField>genre</simpleSearchFacetField>
     </simpleSearchFacetFields>
-
+    
     <primaryFacetFields>
         <primaryFacetField>languageCode</primaryFacetField>
         <primaryFacetField>collection</primaryFacetField>
@@ -83,7 +89,10 @@
         <primaryFacetField>format</primaryFacetField>
         <primaryFacetField>keywords</primaryFacetField>
     </primaryFacetFields>
-
+    
+    <!-- If this many facets or more than this have values, hide non-primary facets -->
+    <hideSecondaryFacetsLimit>8</hideSecondaryFacetsLimit>
+    
     <!-- Fields shown in expanded search results on the search page -->
     <searchResultFields>
         <searchResultField>name</searchResultField>
@@ -156,18 +165,18 @@
     
     <facetOverviewLength>30</facetOverviewLength>
     
-    <countryComponentUrl>http://catalog.clarin.eu/ds/ComponentRegistry/rest/registry/components/clarin.eu:cr1:c_1271859438104/xml</countryComponentUrl>
+    <countryComponentUrl>http://catalog.clarin.eu/ds/ComponentRegistry/rest/registry/1.x/components/clarin.eu:cr1:c_1271859438104/xml</countryComponentUrl>
     
     <languageLinkTemplate>https://infra.clarin.eu/content/language_info/data/{}.html</languageLinkTemplate>
     
     <feedbackFromUrl>http://www.clarin.eu/node/3759?url=</feedbackFromUrl>
 
-    <language2LetterCodeComponentUrl>http://catalog.clarin.eu/ds/ComponentRegistry/rest/registry/components/clarin.eu:cr1:c_1271859438109/xml</language2LetterCodeComponentUrl>
+    <language2LetterCodeComponentUrl>http://catalog.clarin.eu/ds/ComponentRegistry/rest/registry/1.x/components/clarin.eu:cr1:c_1271859438109/xml</language2LetterCodeComponentUrl>
     
-    <language3LetterCodeComponentUrl>http://catalog.clarin.eu/ds/ComponentRegistry/rest/registry/components/clarin.eu:cr1:c_1271859438110/xml</language3LetterCodeComponentUrl>
-
-    <silToISO639CodesUrl>https://infra.clarin.eu/cmd/xslt/sil_to_iso6393.xml</silToISO639CodesUrl>
-
+    <language3LetterCodeComponentUrl>http://catalog.clarin.eu/ds/ComponentRegistry/rest/registry/1.x/components/clarin.eu:cr1:c_1271859438110/xml</language3LetterCodeComponentUrl>
+   
+    <silToISO639CodesUrl>https://infra.clarin.eu/CMDI/1.1/xslt/sil_to_iso6393.xml</silToISO639CodesUrl>
+    
     <reverseProxyPrefix></reverseProxyPrefix>
     
     <FederatedContentSearchUrl>http://weblicht.sfs.uni-tuebingen.de/Aggregator/</FederatedContentSearchUrl>
@@ -175,9 +184,9 @@
     <cqlEndpointFilter>http://cqlservlet.mpi.nl/</cqlEndpointFilter>
     
     <cqlEndpointAlternative>http://cqlservlet.mpi.nl/</cqlEndpointAlternative>
-
+    
     <lrSwitchboardBaseUrl>http://weblicht.sfs.uni-tuebingen.de/clrs/</lrSwitchboardBaseUrl>
-
+    
     <!-- makes the score for the result ranking visible in the search results -->
     <showResultScores>false</showResultScores>
     
