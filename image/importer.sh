@@ -6,6 +6,10 @@ if [ ! -z ${STATSD_PREFIX} ]; then
     sed -i "s/report\.statsd\.prefix\=vlo\.test/report\.statsd\.prefix\=${STATSD_PREFIX}/g" /opt/vlo/bin/statistics/config.properties
 fi
 
+#Update mapping definitions
+cd /srv/VLO-mapping && \
+curl -L "https://github.com/clarin-eric/VLO-mapping/archive/beta.tar.gz" | tar zxvf - --strip-components=1
+
 #Run importer
 touch /opt/vlo/log/vlo-importer.log
 ln -sf /dev/stdout /opt/vlo/log/vlo-importer.log
