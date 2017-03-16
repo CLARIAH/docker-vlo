@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/clarin-eric/docker-tomcat8:1.2.0
+FROM registry.gitlab.com/clarin-eric/docker-tomcat8:1.3.1
 
 ENV JAVA_OPTS="-Dwicket.configuration=deployment -Dsolr.data.dir=/opt/solr-data"
 
@@ -11,7 +11,9 @@ COPY webapp/statistics-config.properties /opt/vlo/bin/statistics/config.properti
 COPY webapp/vlo-context.xml /etc/tomcat8/Catalina/localhost/ROOT.xml
 COPY webapp/solr-context.xml /etc/tomcat8/Catalina/localhost/solr.xml
 COPY importer.sh /opt/importer.sh
+COPY init.sh /app/init.sh
 
 VOLUME ["/opt/sitemap", "/opt/statsd", "/srv/VLO-mapping"]
 
-RUN chmod u+x /opt/importer.sh
+RUN chmod u+x /opt/importer.sh \
+ && chmod u+x /app/init.sh
