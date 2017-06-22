@@ -10,14 +10,13 @@ init_data () {
     fi
 
 #    if [ "${LOCAL}" -eq 0 ]; then
-    echo -n "Fetching remote data"
+    echo -n "Fetching remote data from ${REMOTE_RELEASE_URL}"
     cd webapp
     curl -s -S -J -L -O "${REMOTE_RELEASE_URL}"
     tar -xf *.tar.gz
     cd ${NAME}/war
     sh unpack-wars.sh > /dev/null
     cd ../..
-    cp VloConfig.xml ${NAME}/config
     mv  ${NAME} vlo
     cd ..
     echo $(pwd)
