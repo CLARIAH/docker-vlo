@@ -65,8 +65,19 @@ sh build.sh --local --build
 
 === Parameters
 
-* SOLR_DATA, specify a custom solr data directory
-* STATSD_PREFIX, specifiy an alternative statsd prefix when sending statistics to metrics.clarin.eu.
+* `SOLR_DATA`, specify a custom solr data directory
+* `STATSD_PREFIX`, specifiy an alternative statsd prefix when sending statistics to metrics.clarin.eu.
+
+Parameters that are used to filter VloConfig.xml:
+
+* `VLO_DOCKER_SOLR_URL`, base URL for the Solr instance to be used by the importer and web app for connecting.
+** for example: `http://localhost:8080/solr/core0/`
+* `VLO_DOCKER_PUBLIC_HOME_URL`, public base URL of the web application. 
+** for example: `http://beta-vlo.clarin.eu`
+* `VLO_DOCKER_MAPPING_BASE_URI`, base URL (file or http) for retrieval of the VLO mapping files. 
+** for example: `file:/srv/VLO-mapping/`
+
+These are to be passed as environment variables. The VloConfig.xml file gets filtered using these on container startup (see the `filter-vlo-config.sh` and `init.sh` scripts).
 
 ## Volumes
 
