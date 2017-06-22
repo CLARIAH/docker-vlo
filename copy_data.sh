@@ -1,7 +1,7 @@
 #!/bin/bash
-
-REMOTE_RELEASE_URL="https://github.com/clarin-eric/VLO/releases/download/vlo-4.1.0-beta1/vlo-4.1.0-beta1-Distribution.tar.gz"
-NAME="vlo-4.1.0-beta1"
+VLO_VERSION=4.2.0-beta1
+REMOTE_RELEASE_URL="https://github.com/clarin-eric/VLO/releases/download/vlo-${VLO_VERSION}/vlo-${VLO_VERSION}-Distribution.tar.gz"
+NAME="vlo-${VLO_VERSION}"
 
 init_data () {
     LOCAL=0
@@ -10,14 +10,13 @@ init_data () {
     fi
 
 #    if [ "${LOCAL}" -eq 0 ]; then
-    echo -n "Fetching remote data"
+    echo -n "Fetching remote data from ${REMOTE_RELEASE_URL}"
     cd webapp
     curl -s -S -J -L -O "${REMOTE_RELEASE_URL}"
     tar -xf *.tar.gz
     cd ${NAME}/war
     sh unpack-wars.sh > /dev/null
     cd ../..
-    cp VloConfig.xml ${NAME}/config
     mv  ${NAME} vlo
     cd ..
     echo $(pwd)
@@ -27,8 +26,8 @@ init_data () {
 }
 
 cleanup_data () {
-    if [ -f "webapp/vlo-4.1.0-beta1-Distribution.tar.gz" ]; then
-        rm "webapp/vlo-4.1.0-beta1-Distribution.tar.gz"
+    if [ -f "webapp/vlo-${VLO_VERSION}-Distribution.tar.gz" ]; then
+        rm "webapp/vlo-${VLO_VERSION}-Distribution.tar.gz"
     fi
     if [ -d "webapp/vlo" ]; then
 	    rm -r webapp/vlo
