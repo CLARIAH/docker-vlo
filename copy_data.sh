@@ -1,5 +1,5 @@
 #!/bin/bash
-VLO_VERSION=4.1.0-beta1
+VLO_VERSION=4.2.0-beta1
 REMOTE_RELEASE_URL="https://github.com/clarin-eric/VLO/releases/download/vlo-${VLO_VERSION}/vlo-${VLO_VERSION}-Distribution.tar.gz"
 NAME="vlo-${VLO_VERSION}"
 
