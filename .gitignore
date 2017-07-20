@@ -1,3 +1,5 @@
 image/*.tar.gz
 image/*.tgz
 vlo-*-beta1*
+.DS_Store
+*~

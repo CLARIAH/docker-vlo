@@ -76,6 +76,10 @@ Parameters that are used to filter VloConfig.xml:
 ** for example: `http://beta-vlo.clarin.eu`
 * `VLO_DOCKER_MAPPING_BASE_URI`, base URL (file or http) for retrieval of the VLO mapping files. 
 ** for example: `file:/srv/VLO-mapping/`
+* `VLO_DOCKER_FILE_PROCESSING_THREADS`, number of file processing threads (number of CPU cores seems to be a good rule of thumb)
+** for example: `4`
+* `VLO_DOCKER_SOLR_THREADS`, number of Solr threads (0.5 to 1.0 times the number of file processing threads seems to be a good rule of thumb)
+** for example: `2`
 
 These are to be passed as environment variables. The VloConfig.xml file gets filtered using these on container startup (see the `filter-vlo-config.sh` and `init.sh` scripts).
 
