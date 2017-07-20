@@ -1,5 +1,5 @@
 #!/bin/bash
-VLO_VERSION=4.2.0-beta1
+VLO_VERSION=4.2.1-beta1
 REMOTE_RELEASE_URL="https://github.com/clarin-eric/VLO/releases/download/vlo-${VLO_VERSION}/vlo-${VLO_VERSION}-Distribution.tar.gz"
 NAME="vlo-${VLO_VERSION}"
 
@@ -13,7 +13,7 @@ init_data () {
     echo -n "Fetching remote data from ${REMOTE_RELEASE_URL}"
     cd webapp
     curl -s -S -J -L -O "${REMOTE_RELEASE_URL}"
-    tar -xf *.tar.gz
+    tar -zxf *.tar.gz
     cd ${NAME}/war
     sh unpack-wars.sh > /dev/null
     cd ../..
