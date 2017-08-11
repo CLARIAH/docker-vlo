@@ -23,12 +23,12 @@ fi
 
 #Run importer
 cd /opt/vlo/bin/ && \
-sh vlo_solr_importer.sh > $IMPORTER_SCRIPT_LOG_FILE 2>&1
+nice sh vlo_solr_importer.sh > $IMPORTER_SCRIPT_LOG_FILE 2>&1
 
 #Generate statistics
 cd /opt/vlo/bin/statistics/ && \
-sh start.sh /opt/vlo/bin/statistics/config.properties >> $IMPORTER_SCRIPT_LOG_FILE 2>&1
+nice sh start.sh /opt/vlo/bin/statistics/config.properties >> $IMPORTER_SCRIPT_LOG_FILE 2>&1
 
 #Generate sitemap
 cd /opt/vlo/bin/sitemap-generator/ && \
-sh start.sh >> $IMPORTER_SCRIPT_LOG_FILE 2>&1
+nice sh start.sh >> $IMPORTER_SCRIPT_LOG_FILE 2>&1
