@@ -14,14 +14,14 @@ curl -L "https://github.com/clarin-eric/VLO-mapping/archive/beta.tar.gz" | tar z
 touch /opt/vlo/log/vlo-importer.log
 ln -sf /dev/stdout /opt/vlo/log/vlo-importer.log
 cd /opt/vlo/bin/ && \
-sh vlo_solr_importer.sh
+nice sh vlo_solr_importer.sh
 
 #Generate statistics
 cd /opt/vlo/bin/statistics/ && \
-sh start.sh /opt/vlo/bin/statistics/config.properties
+nice sh start.sh /opt/vlo/bin/statistics/config.properties
 
 #Generate sitemap
 cd /opt/vlo/bin/sitemap-generator/ && \
-sh start.sh
+nice sh start.sh
 
 
