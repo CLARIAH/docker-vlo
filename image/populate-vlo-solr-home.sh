@@ -9,7 +9,20 @@ set -e
 # Where the Solr home configuration can be found... (Source)
 SORL_HOME_SOURCE_DIR="/opt/vlo/solr/vlo-solr-home"
 # Where the Solr home configuration should be copied to... (Target)
-SOLR_HOME_VOLUME_DIR="/srv/vlo-solr-home"
+SOLR_HOME_VOLUME_DIR="${SOLR_HOME:-/srv/vlo-solr-home}"
+
+
+if ! [ -d "${SORL_HOME_SOURCE_DIR}" ]
+then
+	echo "Solr home SOURCE directory (${SORL_HOME_SOURCE_DIR}) does not exist"
+	exit 1
+fi
+
+if ! [ -d "${SOLR_HOME_VOLUME_DIR}" ]
+then
+	echo "Solr home VOLUME target directory (${SOLR_HOME_VOLUME_DIR}) does not exist"
+	exit 1
+fi
 
 DO_POPULATE=0
 
