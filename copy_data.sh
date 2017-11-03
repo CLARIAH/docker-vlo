@@ -10,7 +10,7 @@ init_data () {
     fi
 
 #    if [ "${LOCAL}" -eq 0 ]; then
-    echo -n "Fetching remote data from ${REMOTE_RELEASE_URL}"
+    echo -n "Fetching remote data from ${REMOTE_RELEASE_URL}... "
     cd webapp
     curl -s -S -J -L -O "${REMOTE_RELEASE_URL}"
     tar -zxf *.tar.gz

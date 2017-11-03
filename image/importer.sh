@@ -7,8 +7,8 @@ if [ ! -z ${STATSD_PREFIX} ]; then
 fi
 
 #Update mapping definitions
-cd /srv/VLO-mapping && \
-curl -L "https://github.com/clarin-eric/VLO-mapping/archive/beta.tar.gz" | tar zxvf - --strip-components=1
+cd "${VLO_MAPPING_DEFINITIONS_DIR}" && \
+curl -L "${VLO_MAPPING_DEFINITIONS_DIST_URL}" | tar zxvf - --strip-components=1
 
 #Run importer
 touch /opt/vlo/log/vlo-importer.log

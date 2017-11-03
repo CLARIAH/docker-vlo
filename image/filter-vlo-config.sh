@@ -1,11 +1,5 @@
 #!/bin/bash
 
-# Default values for configuration options
-VLO_DOCKER_PUBLIC_HOME_URL_DEFAULT="https://vlo.clarin.eu"
-VLO_DOCKER_MAPPING_BASE_URI_DEFAULT="file:/srv/VLO-mapping/"
-VLO_DOCKER_FILE_PROCESSING_THREADS_DEFAULT="-1"
-VLO_DOCKER_SOLR_THREADS_DEFAULT="-2"
-
 # VloConfig.xml location
 CONFIG=$1
 
@@ -31,7 +25,7 @@ for v in VLO_DOCKER_SOLR_URL \
 do
 	echo $v
 	# ugly eval call to allow looping through options/environment variables and assigning default values if set
-	val=$(eval echo \${${v}:-\$\{${v}_DEFAULT}\})
+	val=$(eval echo \${${v}\})
 	if [ -z "$val" ]
 	then
 		echo "Error: ${v} not set"
