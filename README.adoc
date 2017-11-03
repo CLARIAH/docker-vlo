@@ -65,20 +65,21 @@ sh build.sh --local --build
 
 === Parameters
 
-* `SOLR_DATA`, specify a custom solr data directory
-* `STATSD_PREFIX`, specifiy an alternative statsd prefix when sending statistics to metrics.clarin.eu.
 * `VLO_MAPPING_DEFINITIONS_DIST_URL`, specify the location of the tarball from which VLO mapping definitions are retrieved on startup and before import (leave empty to skip retrieval, e.g. when using a remote location - see below)
+** for example: `https://github.com/clarin-eric/VLO-mapping/archive/beta.tar.gz`
+* `STATSD_PREFIX`, specifiy an alternative statsd prefix when sending statistics to metrics.clarin.eu.
+** for example: `vlo.beta`
 
 Parameters that are used to filter VloConfig.xml:
 
 * `VLO_DOCKER_SOLR_URL`, base URL for the Solr instance to be used by the importer and web app for connecting.
-** for example: `http://vlo_solr:8080/solr/core0/`
+** for example: `http://vlo_solr:8983/solr/vlo-index/`
 * `VLO_DOCKER_PUBLIC_HOME_URL`, public base URL of the web application. 
 ** for example: `http://beta-vlo.clarin.eu`
 * `VLO_DOCKER_MAPPING_BASE_URI`, base URL (file or http) for retrieval of the VLO mapping files. 
 ** for example: `file:/srv/VLO-mapping/`
-* `VLO_DOCKER_FILE_PROCESSING_THREADS`, number of file processing threads (number of CPU cores seems to be a good rule of thumb)
-** for example: `4`
+* `VLO_DOCKER_FILE_PROCESSING_THREADS`, number of file processing threads (number of CPU cores seems to be a good rule of thumb, or use -1 to let the VM decide based on the available number of cores)
+** for example: `-1`
 * `VLO_DOCKER_SOLR_THREADS`, number of Solr threads (0.5 to 1.0 times the number of file processing threads seems to be a good rule of thumb)
 ** for example: `2`
 
