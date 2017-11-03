@@ -21,7 +21,10 @@ for v in VLO_DOCKER_SOLR_URL \
 		VLO_DOCKER_PUBLIC_HOME_URL \
 		VLO_DOCKER_MAPPING_BASE_URI \
 		VLO_DOCKER_FILE_PROCESSING_THREADS \
-		VLO_DOCKER_SOLR_THREADS
+		VLO_DOCKER_SOLR_THREADS \
+		VLO_DOCKER_DELETE_ALL_FIRST \
+		VLO_DOCKER_MAX_DAYS_IN_SOLR \
+		VLO_DOCKER_DATAROOTS_FILE
 do
 	echo $v
 	# ugly eval call to allow looping through options/environment variables and assigning default values if set

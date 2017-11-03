@@ -1,7 +1,7 @@
 #!/bin/bash
-VLO_VERSION=4.3.0-alpha1
-REMOTE_RELEASE_URL="https://github.com/clarin-eric/VLO/releases/download/vlo-${VLO_VERSION}/vlo-${VLO_VERSION}-Distribution.tar.gz"
-NAME="vlo-${VLO_VERSION}"
+VLO_VERSION=4.3.0-alpha2
+REMOTE_RELEASE_URL="https://github.com/clarin-eric/VLO/releases/download/vlo-${VLO_VERSION}/vlo-${VLO_VERSION}-docker.tar.gz"
+NAME="vlo-${VLO_VERSION}-docker"
 
 init_data () {
     LOCAL=0
@@ -26,8 +26,8 @@ init_data () {
 }
 
 cleanup_data () {
-    if [ -f "webapp/vlo-${VLO_VERSION}-Distribution.tar.gz" ]; then
-        rm "webapp/vlo-${VLO_VERSION}-Distribution.tar.gz"
+    if [ -f "webapp/vlo-${VLO_VERSION}-docker.tar.gz" ]; then
+        rm "webapp/vlo-${VLO_VERSION}-docker.tar.gz"
     fi
     if [ -d "webapp/vlo" ]; then
 	    rm -r webapp/vlo
