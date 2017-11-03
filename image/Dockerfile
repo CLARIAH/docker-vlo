@@ -1,8 +1,7 @@
 FROM registry.gitlab.com/clarin-eric/docker-tomcat8:1.3.2
 
-ENV JAVA_OPTS="-Dwicket.configuration=deployment -Dsolr.data.dir=/opt/solr-data"
+ENV JAVA_OPTS="-Dwicket.configuration=deployment"
 
-RUN mkdir -p /opt/solr-data
 RUN rm -r /var/lib/tomcat8/webapps/ROOT
 
 COPY webapp/vlo/ /opt/vlo
