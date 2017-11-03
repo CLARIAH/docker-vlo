@@ -1,14 +1,16 @@
 #!/bin/sh
-sed -i "s/localhost/172\.17\.0\.1/g" /opt/vlo/config/VloConfig.xml
-
-if [ ! -z ${STATSD_PREFIX} ]; then
+if [ ! -z "${STATSD_PREFIX}" ]; then
     echo "Adjusting with statsd prefix (${STATSD_PREFIX}) override"
-    sed -i "s/report\.statsd\.prefix\=vlo\.test/report\.statsd\.prefix\=${STATSD_PREFIX}/g" /opt/vlo/bin/statistics/config.properties
+    sed -i "s/report\.statsd\.prefix\=.*/report\.statsd\.prefix\=${STATSD_PREFIX}/g" /opt/vlo/bin/statistics/config.properties
 fi
 
 #Update mapping definitions
-cd "${VLO_MAPPING_DEFINITIONS_DIR}" && \
-curl -L "${VLO_MAPPING_DEFINITIONS_DIST_URL}" | tar zxvf - --strip-components=1
+if [ ! -z "${VLO_MAPPING_DEFINITIONS_DIST_URL}" ]; then
+	cd "${VLO_MAPPING_DEFINITIONS_DIR}" && \
+	curl -L "${VLO_MAPPING_DEFINITIONS_DIST_URL}" | tar zxvf - --strip-components=1
+else
+	echo "Not retrieving (updated) VLO mapping definitions!"
+fi
 
 #Run importer
 touch /opt/vlo/log/vlo-importer.log

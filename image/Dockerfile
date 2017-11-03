@@ -1,8 +1,9 @@
 FROM registry.gitlab.com/clarin-eric/docker-tomcat8:1.3.2
 
 ENV JAVA_OPTS="-Dwicket.configuration=deployment" \
-	VLO_MAPPING_DEFINITIONS_DIST_URL="https://github.com/clarin-eric/VLO-mapping/archive/beta.tar.gz" \
-	VLO_MAPPING_DEFINITIONS_DIR="/srv/VLO-mapping"
+	VLO_MAPPING_DEFINITIONS_DIST_URL="https://github.com/clarin-eric/VLO-mapping/archive/master.tar.gz" \
+	VLO_MAPPING_DEFINITIONS_DIR="/srv/VLO-mapping" \
+	STATSD_PREFIX=vlo.docker
 
 # VloConfig options
 ENV	VLO_DOCKER_MAPPING_BASE_URI="file:/srv/VLO-mapping" \
