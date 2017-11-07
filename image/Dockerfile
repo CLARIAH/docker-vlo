@@ -20,7 +20,7 @@ RUN rm -r /srv/tomcat8/webapps/ROOT
 COPY webapp/vlo/ /opt/vlo
 COPY webapp/sitemap-config.properties /opt/vlo/bin/sitemap-generator/config.properties
 COPY webapp/statistics-config.properties /opt/vlo/bin/statistics/config.properties
-COPY webapp/vlo-context.xml /srv/tomcat8/Catalina/localhost/ROOT.xml
+COPY webapp/vlo-context.xml /srv/tomcat8/conf/Catalina/localhost/ROOT.xml
 COPY importer.sh /opt/importer.sh
 COPY filter-vlo-config.sh /opt/filter-vlo-config.sh
 COPY populate-vlo-solr-home.sh /opt/populate-vlo-solr-home.sh
