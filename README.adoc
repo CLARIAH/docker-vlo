@@ -1,4 +1,4 @@
-= CLARIN vlo-beta image (`docker-vlo-beta`)
+= CLARIN vlo image (`docker-vlo`)
 :caution-caption: ☡ CAUTION
 :important-caption: ❗ IMPORTANT
 :note-caption: 🛈 NOTE
@@ -91,19 +91,3 @@ Parameters that are used to filter VloConfig.xml:
 ** or: `/srv/myconfig/dataroots.xml`
 
 These are to be passed as environment variables. The VloConfig.xml file gets filtered using these on container startup (see the `filter-vlo-config.sh` and `init.sh` scripts).
-
-## Volumes
-
-* `/opt/sitemap`: output location of the sitemap generator
-* `/opt/statsd`: history location of the statsd statistics generator
-* `/srv/vlo-solr-home`: export location for the `/opt/populate-vlo-solr-home.sh` script to provision configuration (Solr home directory) to a Solr instance
-
-## Building
-
-### With access to the CLARIN docker registry
-
-1. Build docker image locally:
-
-```
-make
-```
