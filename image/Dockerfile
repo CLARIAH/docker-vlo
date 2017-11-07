@@ -23,7 +23,6 @@ COPY webapp/statistics-config.properties /opt/vlo/bin/statistics/config.properti
 COPY webapp/vlo-context.xml /srv/tomcat8/conf/Catalina/localhost/ROOT.xml
 COPY importer.sh /opt/importer.sh
 COPY filter-vlo-config.sh /opt/filter-vlo-config.sh
-COPY populate-vlo-solr-home.sh /opt/populate-vlo-solr-home.sh
 COPY init.sh /app/init.sh
 
 VOLUME ["/opt/sitemap", "/opt/statsd", "/srv/VLO-mapping", "/srv/vlo-solr-home", "/opt/vlo/solr/vlo-solr-home"]
