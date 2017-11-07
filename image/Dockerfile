@@ -7,7 +7,7 @@ ENV JAVA_OPTS="-Dwicket.configuration=deployment" \
 
 # VloConfig options
 ENV	VLO_DOCKER_MAPPING_BASE_URI="file:/srv/VLO-mapping" \
-	VLO_DOCKER_PUBLIC_HOME_URL="https://vlo.clarin.eu" \
+	VLO_DOCKER_PUBLIC_HOME_URL="http://localhost:8080" \
 	VLO_DOCKER_MAPPING_BASE_URI="file:/srv/VLO-mapping/" \
 	VLO_DOCKER_FILE_PROCESSING_THREADS="-1" \
 	VLO_DOCKER_SOLR_THREADS="2" \
@@ -26,7 +26,7 @@ COPY filter-vlo-config.sh /opt/filter-vlo-config.sh
 COPY populate-vlo-solr-home.sh /opt/populate-vlo-solr-home.sh
 COPY init.sh /app/init.sh
 
-VOLUME ["/opt/sitemap", "/opt/statsd", "/srv/VLO-mapping", "/srv/vlo-solr-home"]
+VOLUME ["/opt/sitemap", "/opt/statsd", "/srv/VLO-mapping", "/srv/vlo-solr-home", "/opt/vlo/solr/vlo-solr-home"]
 
 RUN chmod u+x /opt/importer.sh \
  && chmod u+x /app/init.sh
