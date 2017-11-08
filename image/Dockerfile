@@ -15,6 +15,10 @@ ENV	VLO_DOCKER_MAPPING_BASE_URI="file:/srv/VLO-mapping" \
 	VLO_DOCKER_MAX_DAYS_IN_SOLR="7" \
 	VLO_DOCKER_DATAROOTS_FILE="dataroots-production.xml"
 
+# This should match the Solr image
+ENV SOLR_USER="solr" \
+    SOLR_UID="8983"
+
 RUN	apk update \
  && apk upgrade \
  && apk add --update \
@@ -31,9 +35,13 @@ COPY filter-vlo-config.sh /opt/filter-vlo-config.sh
 COPY solr-replication.sh /opt/solr-replication.sh
 COPY init.sh /app/init.sh
 
-VOLUME ["/opt/sitemap", "/opt/statsd", "/srv/VLO-mapping", "/srv/vlo-solr-home", "/opt/vlo/solr/vlo-solr-home"]
-
 RUN chmod u+x /opt/importer.sh \
  && chmod u+x /opt/filter-vlo-config.sh \
  && chmod u+x /opt/solr-replication.sh \
  && chmod u+x /app/init.sh
+
+# Solr home should be sharable with Solr image, which uses the 'solr' user...
+RUN adduser -D -u $SOLR_UID $SOLR_USER \
+ && chown -R -L $SOLR_USER /opt/vlo/solr/vlo-solr-home
+
+VOLUME ["/opt/sitemap", "/opt/statsd", "/srv/VLO-mapping", "/srv/vlo-solr-home", "/opt/vlo/solr/vlo-solr-home"]
