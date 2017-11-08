@@ -8,7 +8,7 @@
 #   name: Name to be used for the export, must not already exist
 # Environment variables:
 #   SOLR_EXPORT_URL: Base URL of Solr index (e.g. http://localhost:8983/solr/my-index/)
-#   SOLR_EXPORT_DEST: Target parent directory of export
+#   SOLR_EXPORT_DIR: Target parent directory of export ON THE SOLR HOST
 
 function main() {
 	check_vars
@@ -26,10 +26,10 @@ function start() {
 	OUTPUT="${TMPDIR}/solr-export-$(date +'%s').out"
 	if [ "EXPORT" = "$MODE" ]; then
 		echo "Starting export..."
-		curl -s "${REPLICATION_BASE_URL}?command=backup&location=${SOLR_EXPORT_DEST}&name=${NAME}" > $OUTPUT
+		curl -s "${REPLICATION_BASE_URL}?command=backup&location=${SOLR_EXPORT_DIR}&name=${NAME}" > $OUTPUT
 	elif [ "IMPORT" = "$MODE" ]; then
 		echo "Starting import..."
-		curl -s "${REPLICATION_BASE_URL}?command=restore&location=${SOLR_EXPORT_DEST}&name=${NAME}" > $OUTPUT
+		curl -s "${REPLICATION_BASE_URL}?command=restore&location=${SOLR_EXPORT_DIR}&name=${NAME}" > $OUTPUT
 	fi
 
 	EXCEPTION="$(jq -r '.exception' < $OUTPUT)"
@@ -95,7 +95,7 @@ function wait_for_import_completion() {
 	while [ $DONE -eq 0 ]
 	do
 		curl -s "${REPLICATION_BASE_URL}?command=restorestatus" > $OUTPUT
-		EXCEPTION="$(jq -r '.exception' < $OUTPUT)"
+		EXCEPTION="$(jq -r '.restorestatus.exception' < $OUTPUT)"
 		STATUS="$(jq -r '.restorestatus.status' < $OUTPUT)"		
 
 		if [ "success" = "$STATUS" ]; then
@@ -118,9 +118,9 @@ function wait_for_import_completion() {
 }
 
 function check_vars() {
-	if [ -z "${SOLR_EXPORT_URL}" ] || [ -z "${SOLR_EXPORT_DEST}" ]
+	if [ -z "${SOLR_EXPORT_URL}" ] || [ -z "${SOLR_EXPORT_DIR}" ]
 	then
-		echo "One or more of the required variables not set: SOLR_EXPORT_URL, SOLR_EXPORT_DEST"
+		echo "One or more of the required variables not set: SOLR_EXPORT_URL, SOLR_EXPORT_DIR"
 		exit 1
 	fi
 	
