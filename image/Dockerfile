@@ -15,6 +15,11 @@ ENV	VLO_DOCKER_MAPPING_BASE_URI="file:/srv/VLO-mapping" \
 	VLO_DOCKER_MAX_DAYS_IN_SOLR="7" \
 	VLO_DOCKER_DATAROOTS_FILE="dataroots-production.xml"
 
+RUN	apk update \
+ && apk upgrade \
+ && apk add --update \
+ 		jq
+
 RUN rm -r /srv/tomcat8/webapps/ROOT
 
 COPY webapp/vlo/ /opt/vlo
@@ -23,6 +28,7 @@ COPY webapp/statistics-config.properties /opt/vlo/bin/statistics/config.properti
 COPY webapp/vlo-context.xml /srv/tomcat8/conf/Catalina/localhost/ROOT.xml
 COPY importer.sh /opt/importer.sh
 COPY filter-vlo-config.sh /opt/filter-vlo-config.sh
+COPY solr-replication.sh /opt/solr-replication.sh
 COPY init.sh /app/init.sh
 
 VOLUME ["/opt/sitemap", "/opt/statsd", "/srv/VLO-mapping", "/srv/vlo-solr-home", "/opt/vlo/solr/vlo-solr-home"]
