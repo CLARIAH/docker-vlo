@@ -34,4 +34,6 @@ COPY init.sh /app/init.sh
 VOLUME ["/opt/sitemap", "/opt/statsd", "/srv/VLO-mapping", "/srv/vlo-solr-home", "/opt/vlo/solr/vlo-solr-home"]
 
 RUN chmod u+x /opt/importer.sh \
+ && chmod u+x /opt/filter-vlo-config.sh \
+ && chmod u+x /opt/solr-replication.sh \
  && chmod u+x /app/init.sh
