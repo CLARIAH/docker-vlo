@@ -18,8 +18,6 @@ else
 fi
 
 #Run importer
-touch /opt/vlo/log/vlo-importer.log
-ln -sf /dev/stdout /opt/vlo/log/vlo-importer.log
 cd /opt/vlo/bin/ && \
 sh vlo_solr_importer.sh
 

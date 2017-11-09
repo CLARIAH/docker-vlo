@@ -35,6 +35,9 @@ COPY filter-vlo-config.sh /opt/filter-vlo-config.sh
 COPY solr-replication.sh /opt/solr-replication.sh
 COPY init.sh /app/init.sh
 
+COPY fluentd/vlo.conf /etc/fluentd/conf.d/vlo.conf
+
+
 RUN chmod u+x /opt/importer.sh \
  && chmod u+x /opt/filter-vlo-config.sh \
  && chmod u+x /opt/solr-replication.sh \
