@@ -12,8 +12,6 @@
 :toc:
 :warning-caption: ⚠ WARNING
 
-This project provides a Docker container base image, intended to be used as the basis for other images.
-
 == Dependencies
 
 [options="header",cols=",,,m"]
