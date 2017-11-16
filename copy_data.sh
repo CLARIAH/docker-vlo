@@ -1,5 +1,5 @@
 #!/bin/bash
-VLO_VERSION=4.3.0-alpha5
+VLO_VERSION=4.3.0-alpha6
 REMOTE_RELEASE_URL="https://github.com/clarin-eric/VLO/releases/download/vlo-${VLO_VERSION}/vlo-${VLO_VERSION}-docker.tar.gz"
 NAME="vlo-${VLO_VERSION}-docker"
 
