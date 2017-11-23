@@ -2,8 +2,15 @@
 VLO_VERSION=4.3.0-beta2
 REMOTE_RELEASE_URL="https://github.com/clarin-eric/VLO/releases/download/vlo-${VLO_VERSION}/vlo-${VLO_VERSION}-docker.tar.gz"
 NAME="vlo-${VLO_VERSION}-docker"
+VLO_DISTR_FILE="webapp/vlo-${VLO_VERSION}-docker.tar.gz"
+VLO_DISTR_DIR="webapp/vlo"
 
 init_data () {
+	export INIT_DATA_BUILD_DIR="${PWD}"
+	if [ -e "${VLO_DISTR_FILE}" ] || [ -e "${VLO_DISTR_DIR}" ]; then
+		cleanup_data
+	fi
+
     LOCAL=0
     if [ "$1" == "local" ]; then
         LOCAL=1
@@ -26,10 +33,11 @@ init_data () {
 }
 
 cleanup_data () {
-    if [ -f "webapp/vlo-${VLO_VERSION}-docker.tar.gz" ]; then
-        rm "webapp/vlo-${VLO_VERSION}-docker.tar.gz"
+	echo "Cleaning up data"
+    if [ -f "${INIT_DATA_BUILD_DIR}/${VLO_DISTR_FILE}" ]; then
+        rm "${INIT_DATA_BUILD_DIR}/${VLO_DISTR_FILE}"
     fi
-    if [ -d "webapp/vlo" ]; then
-	    rm -r webapp/vlo
+    if [ -d "${INIT_DATA_BUILD_DIR}/${VLO_DISTR_DIR}" ]; then
+	    rm -r "${INIT_DATA_BUILD_DIR}/${VLO_DISTR_DIR}"
     fi
 }
