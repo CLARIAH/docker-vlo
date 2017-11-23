@@ -36,8 +36,7 @@ COPY webapp/sitemap-config.properties /opt/vlo/bin/sitemap-generator/config.prop
 COPY webapp/statistics-config.properties /opt/vlo/bin/statistics/config.properties
 COPY webapp/vlo-context.xml /srv/tomcat8/conf/Catalina/localhost/ROOT.xml
 COPY importer.sh /opt/importer.sh
-COPY filter-vlo-config.sh /opt/filter-vlo-config.sh
-COPY filter-vlo-context.sh /opt/filter-vlo-context.sh
+COPY filter-config-file.sh /opt/filter-config-file.sh
 COPY solr-replication.sh /opt/solr-replication.sh
 COPY init.sh /app/init.sh
 
@@ -45,7 +44,7 @@ COPY fluentd/vlo.conf /etc/fluentd/conf.d/vlo.conf
 
 
 RUN chmod u+x /opt/importer.sh \
- && chmod u+x /opt/filter-vlo-config.sh \
+ && chmod u+x /opt/filter-config-file.sh \
  && chmod u+x /opt/solr-replication.sh \
  && chmod u+x /app/init.sh
 
