@@ -5,18 +5,19 @@ NAME="vlo-${VLO_VERSION}-docker"
 VLO_DISTR_FILE="webapp/vlo-${VLO_VERSION}-docker.tar.gz"
 VLO_DISTR_DIR="webapp/vlo"
 
-init_data () {
+init_data () { 
 	export INIT_DATA_BUILD_DIR="${PWD}"
 	if [ -e "${VLO_DISTR_FILE}" ] || [ -e "${VLO_DISTR_DIR}" ]; then
 		cleanup_data
 	fi
 
-    LOCAL=0
-    if [ "$1" == "local" ]; then
-        LOCAL=1
-    fi
+#     LOCAL=0
+#     if [ "$1" == "local" ]; then
+#         LOCAL=1
+#     fi
 
-#    if [ "${LOCAL}" -eq 0 ]; then
+	install_dependencies $@
+
     echo -n "Fetching remote data from ${REMOTE_RELEASE_URL}... "
     cd webapp
     curl -s -S -J -L -O "${REMOTE_RELEASE_URL}"
@@ -27,9 +28,6 @@ init_data () {
     mv  ${NAME} vlo
     cd ..
     echo $(pwd)
-
-#   else
-#   fi
 }
 
 cleanup_data () {
@@ -40,4 +38,16 @@ cleanup_data () {
     if [ -d "${INIT_DATA_BUILD_DIR}/${VLO_DISTR_DIR}" ]; then
 	    rm -r "${INIT_DATA_BUILD_DIR}/${VLO_DISTR_DIR}"
     fi
+}
+
+install_dependencies() {
+	if [ "$1" != "local" ]
+	then
+		if ! which apk; then
+			echo "WARNING: apk not found - may not be able to copy data"
+		else
+			apk --quiet update --update-cache
+			apk --quiet add 'curl'
+		fi
+	fi
 }
