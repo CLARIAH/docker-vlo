@@ -1,1 +1,1 @@
-build-script-1.0.4-110e17e25dd843f894e24504df57fed2e79e9c53/build.sh
+build-script/build.sh
