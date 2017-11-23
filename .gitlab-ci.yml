@@ -1,6 +1,9 @@
-image: docker:1.12.2
+image: docker:17.05.0
 services:
-  - docker:1.12.2-dind
+  - docker:17.05.0-dind
+
+variables:
+    GIT_SUBMODULE_STRATEGY: recursive
 
 stages:
   - build
@@ -24,3 +27,4 @@ release:
   stage: release
   tags:
     - docker
+
