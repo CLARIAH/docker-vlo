@@ -2,7 +2,8 @@
 set -e
 
 # Filter VLO configuration
-/bin/bash /opt/filter-vlo-config.sh /opt/vlo/config/VloConfig.xml
+/bin/bash /opt/filter-vlo-config.sh ${VLO_DOCKER_CONFIG_FILE}
+/bin/bash /opt/filter-vlo-context.sh /srv/tomcat8/conf/Catalina/localhost/ROOT.xml
 
 # Update mapping definitions
 if [ ! -z "${VLO_MAPPING_DEFINITIONS_DIST_URL}" ]; then

@@ -6,15 +6,20 @@ ENV JAVA_OPTS="-Dwicket.configuration=deployment" \
 	STATSD_PREFIX=vlo.docker
 
 # VloConfig options
-ENV	VLO_DOCKER_MAPPING_BASE_URI="file:/srv/VLO-mapping" \
+ENV	VLO_DOCKER_CONFIG_FILE="/opt/vlo/config/VloConfig.xml" \
+	VLO_DOCKER_MAPPING_BASE_URI="file:/srv/VLO-mapping" \
 	VLO_DOCKER_PUBLIC_HOME_URL="http://localhost:8080" \
 	VLO_DOCKER_MAPPING_BASE_URI="file:/srv/VLO-mapping/" \
 	VLO_DOCKER_FILE_PROCESSING_THREADS="-1" \
 	VLO_DOCKER_SOLR_THREADS="2" \
 	VLO_DOCKER_DELETE_ALL_FIRST="false" \
 	VLO_DOCKER_MAX_DAYS_IN_SOLR="7" \
-	VLO_DOCKER_DATAROOTS_FILE="dataroots-production.xml"
-
+	VLO_DOCKER_DATAROOTS_FILE="dataroots-production.xml" \
+	VLO_DOCKER_PIWIK_ENABLE_TRACKER="false" \
+	VLO_DOCKER_PIWIK_SITE_ID="3" \
+	VLO_DOCKER_PIWIK_HOST="https://stats.clarin.eu/" \
+	VLO_DOCKER_PIWIK_DOMAINS="*.vlo.clarin.eu" 
+	
 # This should match the Solr image
 ENV SOLR_USER="solr" \
     SOLR_UID="8983"
@@ -32,6 +37,7 @@ COPY webapp/statistics-config.properties /opt/vlo/bin/statistics/config.properti
 COPY webapp/vlo-context.xml /srv/tomcat8/conf/Catalina/localhost/ROOT.xml
 COPY importer.sh /opt/importer.sh
 COPY filter-vlo-config.sh /opt/filter-vlo-config.sh
+COPY filter-vlo-context.sh /opt/filter-vlo-context.sh
 COPY solr-replication.sh /opt/solr-replication.sh
 COPY init.sh /app/init.sh
 
