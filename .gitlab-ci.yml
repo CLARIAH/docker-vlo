@@ -7,6 +7,7 @@ variables:
 
 stages:
   - build
+  - test
   - release
 
 build:
@@ -14,6 +15,16 @@ build:
     untracked: true
   script: timeout -t 1440 sh -x ./build.sh --build
   stage: build
+  tags:
+    - docker
+    
+test:
+  artifacts:
+    untracked: true
+  dependencies:
+    - build
+  script: timeout -t 1440 sh -x ./build.sh --test
+  stage: test
   tags:
     - docker
 
