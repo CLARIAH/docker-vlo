@@ -44,21 +44,18 @@ services:
     image: "registry.gitlab.com/clarin-eric/docker-tester:1.2.0"
     depends_on:
         - vlo_server
-    command: http single --url=http://vlo_server:8080/ --expected=200 -v -k
+    entrypoint: /bin/bash -c "/bin/bash -c \"$${@}\""
+    command: |
+      bash -c "
+        /bin/echo 'http://vlo_server:8080/;200' >> /etc/checker.conf
+        /bin/echo 'http://vlo_server:8080/search;200' >> /etc/checker.conf
+        /bin/echo 'http://vlo_server:8080/xyzabc;404' >> /etc/checker.conf
+        /usr/bin/checker http multi --verbose -k
+      "
     volumes:
       - test:/test
     networks:
       - "vlo_server"
-#
-#  vlo-test2:
-#    image: "registry.gitlab.com/clarin-eric/docker-tester:1.2.0"
-#    depends_on:
-#        - vlo_server
-#    command: http single --url=http://vlo_server:8080/ --expected=200 -v -k
-#    volumes:
-#      - test:/test
-#    networks:
-#      - "vlo_server"
 
 volumes:
   test:
