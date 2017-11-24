@@ -18,13 +18,13 @@ services:
     depends_on:
       - vlo_solr_init # to ensure Solr home directory content
     entrypoint: ["bash", "-c", "[ -f ${SOLR_HOME_PROVISIONING_PATH}/solr.xml ]
-                        && /usr/bin/entrypoint.sh"]
+                        && /usr/bin/entrypoint.sh --test"]
     volumes:
+      - test:/test
       - solr-home-provisioning:${SOLR_HOME_PROVISIONING_PATH}
       - vlo-solr-data:$SOLR_DATA_HOME
     networks:
       - "vlo_server"
-    restart: unless-stopped
 
   vlo_server:
     image: "${IMAGE_QUALIFIED_NAME}"
@@ -33,6 +33,8 @@ services:
       - VLO_DOCKER_SOLR_URL=http://vlo_solr:8983/solr/vlo-index/
       - VLO_DOCKER_PUBLIC_HOME_URL=http://localhost:8080
       - VLO_DOCKER_PIWIK_ENABLE_TRACKER=false
+    depends_on:
+      - vlo_solr
     volumes:
       - test:/test
     networks:
@@ -47,16 +49,16 @@ services:
       - test:/test
     networks:
       - "vlo_server"
-
-  vlo-test2:
-    image: "registry.gitlab.com/clarin-eric/docker-tester:1.2.0"
-    depends_on:
-        - vlo_server
-    command: http single --url=http://vlo_server:8080/ --expected=200 -v -k
-    volumes:
-      - test:/test
-    networks:
-      - "vlo_server"
+#
+#  vlo-test2:
+#    image: "registry.gitlab.com/clarin-eric/docker-tester:1.2.0"
+#    depends_on:
+#        - vlo_server
+#    command: http single --url=http://vlo_server:8080/ --expected=200 -v -k
+#    volumes:
+#      - test:/test
+#    networks:
+#      - "vlo_server"
 
 volumes:
   test:
