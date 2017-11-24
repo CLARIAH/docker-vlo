@@ -1,20 +1,28 @@
 #!/bin/sh
+set -e
 
-SOLR_DATA=${_SOLR_DATA:-"/opt/solr-data"}
-VLO_DOCKER_SOLR_URL=${_VLO_DOCKER_SOLR_URL:-"http://localhost:8080/solr/core0/"}
-VLO_DOCKER_PUBLIC_HOME_URL=${_VLO_DOCKER_PUBLIC_HOME_URL:-"http://localhost:8080"}
-VLO_DOCKER_MAPPING_BASE_URI=${_VLO_DOCKER_MAPPING_BASE_URI:-"file:/srv/VLO-mapping/"}
-VLO_DOCKER_FILE_PROCESSING_THREADS=${_VLO_DOCKER_FILE_PROCESSING_THREADS:-"-1"}
-VLO_DOCKER_SOLR_THREADS=${_VLO_DOCKER_SOLR_THREADS:-"4"}
+# Filter VLO configuration
+/bin/bash /opt/filter-config-file.sh ${VLO_DOCKER_CONFIG_FILE} \
+	VLO_DOCKER_SOLR_URL \
+	VLO_DOCKER_PUBLIC_HOME_URL \
+	VLO_DOCKER_MAPPING_BASE_URI \
+	VLO_DOCKER_FILE_PROCESSING_THREADS \
+	VLO_DOCKER_SOLR_THREADS \
+	VLO_DOCKER_DELETE_ALL_FIRST \
+	VLO_DOCKER_MAX_DAYS_IN_SOLR \
+	VLO_DOCKER_DATAROOTS_FILE
 
-export "VLO_DOCKER_SOLR_URL=${VLO_DOCKER_SOLR_URL}"
-export "VLO_DOCKER_PUBLIC_HOME_URL=${VLO_DOCKER_PUBLIC_HOME_URL}"
-export "VLO_DOCKER_MAPPING_BASE_URI=${VLO_DOCKER_MAPPING_BASE_URI}"
-export "VLO_DOCKER_FILE_PROCESSING_THREADS=${VLO_DOCKER_FILE_PROCESSING_THREADS}"
-export "VLO_DOCKER_SOLR_THREADS=${VLO_DOCKER_SOLR_THREADS}"
+/bin/bash /opt/filter-config-file.sh /srv/tomcat8/conf/Catalina/localhost/ROOT.xml \
+	VLO_DOCKER_CONFIG_FILE \
+	VLO_DOCKER_PIWIK_ENABLE_TRACKER \
+	VLO_DOCKER_PIWIK_SITE_ID \
+	VLO_DOCKER_PIWIK_HOST \
+	VLO_DOCKER_PIWIK_DOMAINS
 
-/bin/bash /opt/filter-vlo-config.sh /opt/vlo/config/VloConfig.xml
-
-#Update mapping definitions
-cd /srv/VLO-mapping/ && \
-curl -L "https://github.com/clarin-eric/VLO-mapping/archive/beta.tar.gz" | tar zxvf - --strip-components=1
+# Update mapping definitions
+if [ ! -z "${VLO_MAPPING_DEFINITIONS_DIST_URL}" ]; then
+	cd "$VLO_MAPPING_DEFINITIONS_DIR" && \
+	curl -L "${VLO_MAPPING_DEFINITIONS_DIST_URL}" | tar zxvf - --strip-components=1
+else
+	echo "Not retrieving VLO mapping definitions!"
+fi

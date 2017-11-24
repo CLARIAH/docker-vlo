@@ -1,16 +1,24 @@
 #!/bin/bash
-VLO_VERSION=4.2.1-beta1
-REMOTE_RELEASE_URL="https://github.com/clarin-eric/VLO/releases/download/vlo-${VLO_VERSION}/vlo-${VLO_VERSION}-Distribution.tar.gz"
-NAME="vlo-${VLO_VERSION}"
+VLO_VERSION=4.3.0-beta2
+REMOTE_RELEASE_URL="https://github.com/clarin-eric/VLO/releases/download/vlo-${VLO_VERSION}/vlo-${VLO_VERSION}-docker.tar.gz"
+NAME="vlo-${VLO_VERSION}-docker"
+VLO_DISTR_FILE="webapp/vlo-${VLO_VERSION}-docker.tar.gz"
+VLO_DISTR_DIR="webapp/vlo"
 
-init_data () {
-    LOCAL=0
-    if [ "$1" == "local" ]; then
-        LOCAL=1
-    fi
+init_data () { 
+	export INIT_DATA_BUILD_DIR="${PWD}"
+	if [ -e "${VLO_DISTR_FILE}" ] || [ -e "${VLO_DISTR_DIR}" ]; then
+		cleanup_data
+	fi
 
-#    if [ "${LOCAL}" -eq 0 ]; then
-    echo -n "Fetching remote data from ${REMOTE_RELEASE_URL}"
+#     LOCAL=0
+#     if [ "$1" == "local" ]; then
+#         LOCAL=1
+#     fi
+
+	install_dependencies $@
+
+    echo -n "Fetching remote data from ${REMOTE_RELEASE_URL}... "
     cd webapp
     curl -s -S -J -L -O "${REMOTE_RELEASE_URL}"
     tar -zxf *.tar.gz
@@ -20,16 +28,26 @@ init_data () {
     mv  ${NAME} vlo
     cd ..
     echo $(pwd)
-
-#   else
-#   fi
 }
 
 cleanup_data () {
-    if [ -f "webapp/vlo-${VLO_VERSION}-Distribution.tar.gz" ]; then
-        rm "webapp/vlo-${VLO_VERSION}-Distribution.tar.gz"
+	echo "Cleaning up data"
+    if [ -f "${INIT_DATA_BUILD_DIR}/${VLO_DISTR_FILE}" ]; then
+        rm "${INIT_DATA_BUILD_DIR}/${VLO_DISTR_FILE}"
     fi
-    if [ -d "webapp/vlo" ]; then
-	    rm -r webapp/vlo
+    if [ -d "${INIT_DATA_BUILD_DIR}/${VLO_DISTR_DIR}" ]; then
+	    rm -r "${INIT_DATA_BUILD_DIR}/${VLO_DISTR_DIR}"
     fi
+}
+
+install_dependencies() {
+	if [ "$1" != "local" ]
+	then
+		if ! which apk; then
+			echo "WARNING: apk not found - may not be able to copy data"
+		else
+			apk --quiet update --update-cache
+			apk --quiet add 'curl'
+		fi
+	fi
 }
