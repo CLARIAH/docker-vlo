@@ -50,7 +50,7 @@ services:
         /bin/echo 'http://vlo_server:8080/;200' >> /etc/checker.conf
         /bin/echo 'http://vlo_server:8080/search;200' >> /etc/checker.conf
         /bin/echo 'http://vlo_server:8080/xyzabc;404' >> /etc/checker.conf
-        /usr/bin/checker http multi --verbose -k
+        /usr/bin/checker http multi --verbose -k -t 30 -T 60
       "
     volumes:
       - test:/test
