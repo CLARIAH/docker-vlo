@@ -5,6 +5,9 @@ services:
 variables:
     GIT_SUBMODULE_STRATEGY: recursive
 
+before_script:
+  - apk add --no-cache openssl curl
+
 stages:
   - build
   - test
@@ -38,4 +41,3 @@ release:
   stage: release
   tags:
     - docker
-

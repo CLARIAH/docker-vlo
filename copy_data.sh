@@ -16,8 +16,6 @@ init_data () {
 #         LOCAL=1
 #     fi
 
-	install_dependencies $@
-
     echo -n "Fetching remote data from ${REMOTE_RELEASE_URL}... "
     cd webapp
     curl -s -S -J -L -O "${REMOTE_RELEASE_URL}"
@@ -38,16 +36,4 @@ cleanup_data () {
     if [ -d "${INIT_DATA_BUILD_DIR}/${VLO_DISTR_DIR}" ]; then
 	    rm -r "${INIT_DATA_BUILD_DIR}/${VLO_DISTR_DIR}"
     fi
-}
-
-install_dependencies() {
-	if [ "$1" != "local" ]
-	then
-		if ! which apk; then
-			echo "WARNING: apk not found - may not be able to copy data"
-		else
-			apk --quiet update --update-cache
-			apk --quiet add 'curl'
-		fi
-	fi
 }
