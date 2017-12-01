@@ -77,8 +77,7 @@ sh build.sh --local --build
 | No
 | String
 | `https://github.com/clarin-eric/VLO-mapping/archive/master.tar.gz`
-| Specify the location of the tarball from which VLO mapping definitions are retrieved on startup and before import (leave empty to skip retrieval, e.g. when using a remote location - see below) 
-- for example: `https://github.com/clarin-eric/VLO-mapping/archive/beta.tar.gz`
+| Specify the location of the tarball from which VLO mapping definitions are retrieved on startup and before import (leave empty to skip retrieval, e.g. when using a remote location - see `VLO_DOCKER_MAPPING_BASE_URI` parameter)
 
 | VLO_MAPPING_DEFINITIONS_DIR
 | Yes
@@ -177,7 +176,7 @@ https://github.com/etsy/statsd[StatsD] parameters - not setting one of these wil
 - for example: `8125`
 
 |===
-https://www.piwik.org[Piwik] (access statistics gathering) parameters
+https://www.piwik.org[Piwik] (access statistics gathering) parameters:
 
 [options="header",cols=",,,,"]
 |===
