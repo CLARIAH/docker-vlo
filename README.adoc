@@ -65,8 +65,15 @@ sh build.sh --local --build
 
 * `VLO_MAPPING_DEFINITIONS_DIST_URL`, specify the location of the tarball from which VLO mapping definitions are retrieved on startup and before import (leave empty to skip retrieval, e.g. when using a remote location - see below)
 ** for example: `https://github.com/clarin-eric/VLO-mapping/archive/beta.tar.gz`
-* `STATSD_PREFIX`, specifiy an alternative statsd prefix when sending statistics to metrics.clarin.eu.
+
+[StatsD](https://github.com/etsy/statsd) parameters - not setting one of these will prevent statistics from being collected and sent after import:
+
+* `STATSD_PREFIX`, specifiy an alternative statsd prefix when sending statistics
 ** for example: `vlo.beta`
+* `VLO_DOCKER_STATSD_HOST`, StatsD host to send metrics to
+** for example: `stats.domain.com`
+* `VLO_DOCKER_STATSD_PORT`, StatsD port on host - defaults to 8125
+** for example: 8125
 
 Parameters that are used to filter VloConfig.xml:
 
@@ -87,5 +94,6 @@ Parameters that are used to filter VloConfig.xml:
 * `VLO_DOCKER_DATAROOTS_FILE`, filename (absolute or relative to `VloConfig.xml`) that defines the data roots; this can be one of the shipped data root definitions or your own custom definition from a volume or mount
 ** for example: `dataroots-production.xml`
 ** or: `/srv/myconfig/dataroots.xml`
+* 
 
 These are to be passed as environment variables. The VloConfig.xml file gets filtered using these on container startup (see the `filter-vlo-config.sh` and `init.sh` scripts).

@@ -4,7 +4,7 @@ ENV JAVA_OPTS="-Dwicket.configuration=deployment" \
 	VLO_MAPPING_DEFINITIONS_DIST_URL="https://github.com/clarin-eric/VLO-mapping/archive/master.tar.gz" \
 	VLO_MAPPING_DEFINITIONS_DIR="/srv/VLO-mapping" \
 	VLO_DOCKER_STATSD_HOST="" \
-	VLO_DOCKER_STATSD_PORT="" \
+	VLO_DOCKER_STATSD_PORT="8125" \
 	STATSD_PREFIX=""
 	
 # VloConfig options
