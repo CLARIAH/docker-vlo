@@ -63,6 +63,8 @@ sh build.sh --local --build
 
 === Parameters
 
+These are to be passed as environment variables. The `VloConfig.xml` file and other configuration files get filtered (i.e. placeholder substitution takes place) using these on container startup and/or import (see the `filter-vlo-config.sh`, `init.sh` and `importer.sh` scripts).
+
 [options="header",cols=",,,,"]
 |===
 | Name | Required | Type | Default value | Description
@@ -207,5 +209,3 @@ https://www.piwik.org[Piwik] (access statistics gathering) parameters:
 | Domain(s) to report for
 
 |===
-
-These are to be passed as environment variables. The `VloConfig.xml` file and other configuration files get filtered (i.e. placeholder substitution takes place) using these on container startup and/or import (see the `filter-vlo-config.sh`, `init.sh` and `importer.sh` scripts).
