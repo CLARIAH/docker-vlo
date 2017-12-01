@@ -3,11 +3,6 @@ IMPORTER_SCRIPT_LOG_FILE="/var/log/vlo-import-script.log"
 
 touch $IMPORTER_SCRIPT_LOG_FILE
 
-if [ ! -z "${STATSD_PREFIX}" ]; then
-    echo "Adjusting with statsd prefix (${STATSD_PREFIX}) override" > $IMPORTER_SCRIPT_LOG_FILE
-    sed -i "s/report\.statsd\.prefix\=.*/report\.statsd\.prefix\=${STATSD_PREFIX}/g" /opt/vlo/bin/statistics/config.properties
-fi
-
 # Filter sitemap properties
 sed -e "s@^VLO_URL\=.*@VLO_URL\=${VLO_DOCKER_PUBLIC_HOME_URL}\/@g" \
 		-e "s@^SOLR_QUERY_URL\=.*@SOLR_QUERY_URL\=${VLO_DOCKER_SOLR_URL}select\?@g" \
@@ -25,9 +20,21 @@ fi
 cd /opt/vlo/bin/ && \
 nice sh vlo_solr_importer.sh > $IMPORTER_SCRIPT_LOG_FILE 2>&1
 
-#Generate statistics
-cd /opt/vlo/bin/statistics/ && \
-nice sh start.sh /opt/vlo/bin/statistics/config.properties >> $IMPORTER_SCRIPT_LOG_FILE 2>&1
+#Solr index statistics
+if [ ! -z "${VLO_DOCKER_STATSD_HOST}" ] && [ ! -z "${VLO_DOCKER_STATSD_PORT}" ] && [ ! -z "${STATSD_PREFIX}" ]; then
+	# Filter properties in statics configuration
+	cp "/opt/vlo/bin/statistics/config.properties" "/opt/vlo/bin/statistics/config.filtered.properties"
+	/bin/bash "/opt/filter-config-file.sh" "/opt/vlo/bin/statistics/config.filtered.properties" \
+		VLO_DOCKER_STATSD_HOST \
+		VLO_DOCKER_STATSD_PORT \
+		STATSD_PREFIX
+	# Generate statistics
+	cd /opt/vlo/bin/statistics/ && \
+	nice sh start.sh /opt/vlo/bin/statistics/config.filtered.properties >> $IMPORTER_SCRIPT_LOG_FILE 2>&1
+else
+	echo "Not generating statistics - one or more required environment variables (VLO_DOCKER_STATSD_HOST, VLO_DOCKER_STATSD_PORT, STATSD_PREFIX) not set" \
+		| tee -a >> $IMPORTER_SCRIPT_LOG_FILE
+fi
 
 #Generate sitemap
 cd /opt/vlo/bin/sitemap-generator/ && \

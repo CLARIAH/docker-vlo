@@ -3,8 +3,10 @@ FROM registry.gitlab.com/clarin-eric/docker-alpine-supervisor-java-tomcat-base:1
 ENV JAVA_OPTS="-Dwicket.configuration=deployment" \
 	VLO_MAPPING_DEFINITIONS_DIST_URL="https://github.com/clarin-eric/VLO-mapping/archive/master.tar.gz" \
 	VLO_MAPPING_DEFINITIONS_DIR="/srv/VLO-mapping" \
-	STATSD_PREFIX=vlo.docker
-
+	VLO_DOCKER_STATSD_HOST="" \
+	VLO_DOCKER_STATSD_PORT="" \
+	STATSD_PREFIX=""
+	
 # VloConfig options
 ENV	VLO_DOCKER_CONFIG_FILE="/opt/vlo/config/VloConfig.xml" \
 	VLO_DOCKER_MAPPING_BASE_URI="file:/srv/VLO-mapping" \
@@ -18,7 +20,7 @@ ENV	VLO_DOCKER_CONFIG_FILE="/opt/vlo/config/VloConfig.xml" \
 	VLO_DOCKER_PIWIK_ENABLE_TRACKER="false" \
 	VLO_DOCKER_PIWIK_SITE_ID="3" \
 	VLO_DOCKER_PIWIK_HOST="https://stats.clarin.eu/" \
-	VLO_DOCKER_PIWIK_DOMAINS="*.vlo.clarin.eu" 
+	VLO_DOCKER_PIWIK_DOMAINS="*.vlo.clarin.eu"
 	
 # This should match the Solr image
 ENV SOLR_USER="solr" \
