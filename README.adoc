@@ -89,7 +89,7 @@ These are to be passed as environment variables. The `VloConfig.xml` file and ot
 
 |===
 
-Parameters that are used to filter VloConfig.xml:
+Parameters that are used to filter `VloConfig.xml`:
 
 [options="header",cols=",,,,"]
 |===
@@ -113,8 +113,7 @@ Parameters that are used to filter VloConfig.xml:
 | Yes
 | String
 | `file:/srv/VLO-mapping/`
-| base URL (file or http) for retrieval of the VLO mapping files. 
-- for example: `file:/srv/VLO-mapping/`eu`
+| base URL (file or http) for retrieval of the VLO mapping files
 
 | VLO_DOCKER_FILE_PROCESSING_THREADS
 | Yes
