@@ -3,11 +3,6 @@ IMPORTER_SCRIPT_LOG_FILE="/var/log/vlo-import-script.log"
 
 touch $IMPORTER_SCRIPT_LOG_FILE
 
-# Filter sitemap properties
-sed -e "s@^VLO_URL\=.*@VLO_URL\=${VLO_DOCKER_PUBLIC_HOME_URL}\/@g" \
-		-e "s@^SOLR_QUERY_URL\=.*@SOLR_QUERY_URL\=${VLO_DOCKER_SOLR_URL}select\?@g" \
-		-i /opt/vlo/bin/sitemap-generator/config.properties
-
 #Update mapping definitions
 if [ ! -z "${VLO_MAPPING_DEFINITIONS_DIST_URL}" ]; then
 	cd "${VLO_MAPPING_DEFINITIONS_DIR}" && \
@@ -32,10 +27,25 @@ if [ ! -z "${VLO_DOCKER_STATSD_HOST}" ] && [ ! -z "${VLO_DOCKER_STATSD_PORT}" ] 
 	cd /opt/vlo/bin/statistics/ && \
 	nice sh start.sh /opt/vlo/bin/statistics/config.filtered.properties >> $IMPORTER_SCRIPT_LOG_FILE 2>&1
 else
-	echo "Not generating statistics - one or more required environment variables (VLO_DOCKER_STATSD_HOST, VLO_DOCKER_STATSD_PORT, STATSD_PREFIX) not set" \
-		| tee -a >> $IMPORTER_SCRIPT_LOG_FILE
+	echo "WARNING: Not generating statistics - one or more required environment variables (VLO_DOCKER_STATSD_HOST, VLO_DOCKER_STATSD_PORT, STATSD_PREFIX) not set" \
+		| tee -a $IMPORTER_SCRIPT_LOG_FILE
 fi
 
-#Generate sitemap
-cd /opt/vlo/bin/sitemap-generator/ && \
-nice sh start.sh >> $IMPORTER_SCRIPT_LOG_FILE 2>&1
+#Sitemap
+if [ ! -z "${VLO_DOCKER_PUBLIC_HOME_URL}" ] && [ ! -z "${VLO_DOCKER_SOLR_URL}" ]; then
+	# Filter properties in sitemap generator configuraiton
+	cp "/opt/vlo/bin/sitemap-generator/config.properties" "/opt/vlo/bin/sitemap-generator/config.properties.orig"
+	/bin/bash "/opt/filter-config-file.sh" "/opt/vlo/bin/sitemap-generator/config.properties" \
+		VLO_DOCKER_PUBLIC_HOME_URL \
+		VLO_DOCKER_SOLR_URL
+
+	# Generate sitemap
+	cd /opt/vlo/bin/sitemap-generator/ && \
+	nice sh start.sh >> $IMPORTER_SCRIPT_LOG_FILE 2>&1
+
+	# Undo filtering
+	cp "/opt/vlo/bin/sitemap-generator/config.properties.orig" "/opt/vlo/bin/sitemap-generator/config.properties"
+else
+	echo "WARNING: Not generating sitemap - one or more required environment variables (VLO_DOCKER_PUBLIC_HOME_URL, VLO_DOCKER_SOLR_URL not set" \
+		| tee -a $IMPORTER_SCRIPT_LOG_FILE
+fi
