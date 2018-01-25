@@ -61,7 +61,32 @@ NOTE: Please issue all of the following shell statements from within the root di
 sh build.sh --local --build
 ----
 
-=== Parameters
+== Upgrading to a newer VLO version
+
+The `copy_data.sh` script retrieves a VLO distribution package from GitHub on basis of a
+fixed URL scheme that takes the VLO version as a parameter. To make this work for a new
+release of the VLO, make sure the following has taken place:
+
+. The target version of the VLO has been tagged with a tag of the from `vlo-${VERSION}`,
+and this tag has been pushed to GitHub
+** for examples see the https://github.com/clarin-eric/VLO/tags[existing tags])
+. A release has been made on basis of this tag 
+** see
+https://github.com/clarin-eric/VLO/releases)[existing releases] and the
+https://help.github.com/articles/about-releases/[GitHub documentation on releases]
+. A docker specific build of the VLO has been created (using `mvn package -Pdocker`) and
+its distribution package (the output of the `vlo-distribution` subproject) has been
+attached to the release
+** this should result in there being a distribution package 
+available (publicly) at the URL
+`https://github.com/clarin-eric/VLO/releases/download/vlo-${VERSION}/vlo-${VERSION}-docker.tar.gz`
+** see the https://github.com/clarin-eric/VLO/blob/master/README.md[VLO documentation] for
+more information on building the VLO
+
+Given these conditions, the only required change in this project is to set the 
+`VLO_VERSION` variable in `copy_data.sh` to the target version.
+
+== Parameters
 
 These are to be passed as environment variables. The `VloConfig.xml` file and other configuration files get filtered (i.e. placeholder substitution takes place) using these on container startup and/or import (see the `filter-vlo-config.sh`, `init.sh` and `importer.sh` scripts).
 
