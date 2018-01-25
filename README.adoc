@@ -69,7 +69,7 @@ release of the VLO, make sure the following has taken place:
 
 . The target version of the VLO has been tagged with a tag of the from `vlo-${VERSION}`,
 and this tag has been pushed to GitHub
-** for examples see the https://github.com/clarin-eric/VLO/tags[existing tags])
+** for examples see the https://github.com/clarin-eric/VLO/tags[existing tags]
 . A release has been made on basis of this tag 
 ** see
 https://github.com/clarin-eric/VLO/releases)[existing releases] and the
