@@ -58,7 +58,22 @@ NOTE: Please issue all of the following shell statements from within the root di
 
 [source,sh]
 ----
-sh build.sh --local --build
+bash build.sh --local --build
+----
+
+==== Alternative data source
+
+By default, the `copy_data.sh` reads a number of variables from the `copy_data.env.sh`
+file, which defines the VLO version number and where to fetch it (remotely). You can
+use an alternative file, for example to build on basis of your local development output.
+Export the `DATA_ENV_FILE` variable to specify an alternative environment definitions
+file.
+
+For example:
+[source,sh]
+----
+export DATA_ENV_FILE=copy_data_dev.env.sh
+bash build.sh --local --build
 ----
 
 == Upgrading to a newer VLO version

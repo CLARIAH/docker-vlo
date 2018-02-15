@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-source "${ENV_FILE:-copy_data.env.sh}"
+source "${DATA_ENV_FILE:-copy_data.env.sh}"
 
 init_data () { 
 	export INIT_DATA_BUILD_DIR="${PWD}"
