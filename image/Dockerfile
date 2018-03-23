@@ -11,6 +11,7 @@ ENV	VLO_DOCKER_CONFIG_FILE="/opt/vlo/config/VloConfig.xml" \
 	VLO_DOCKER_MAPPING_BASE_URI="file:/srv/VLO-mapping" \
 	VLO_DOCKER_PUBLIC_HOME_URL="http://localhost:8080" \
 	VLO_DOCKER_MAPPING_BASE_URI="file:/srv/VLO-mapping/" \
+	VLO_DOCKER_VALUE_MAPPING_URI="file:/srv/VLO-mapping/value-mapping/dist/value-map.xml" \
 	VLO_DOCKER_FILE_PROCESSING_THREADS="-1" \
 	VLO_DOCKER_SOLR_THREADS="2" \
 	VLO_DOCKER_DELETE_ALL_FIRST="false" \
