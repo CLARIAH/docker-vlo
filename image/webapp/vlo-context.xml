@@ -32,4 +32,45 @@
             name="eu.clarin.cmdi.vlo.piwik.domains" 
             description="defaults to '*.catalog.clarin.eu'"
             value="${VLO_DOCKER_PIWIK_DOMAINS}"/>
+
+   <!-- User satisfaction/rating collection configuration, including connection to CouchDB backend -->
+    <Parameter 
+        name="eu.clarin.cmdi.vlo.rating.enabled" 
+        description="Set to true to enable user satisfaction rating collection"
+        value="${VLO_DOCKER_RATING_ENABLED}"/>  
+        
+    <Parameter 
+        name="eu.clarin.cmdi.vlo.rating.panel.showPanelDelay" 
+        description="minimal time (seconds) to wait between session start and first appearance of panel"
+        value="${VLO_DOCKER_RATING_SHOW_PANEL_DELAY}"/>  
+
+    <Parameter 
+        name="eu.clarin.cmdi.vlo.rating.panel.dismissTimeout" 
+        description="minimal time (seconds) between dismissing the panel and showing it again"
+        value="${VLO_DOCKER_RATING_DISMISS_TIMEOUT}"/>  
+
+    <Parameter 
+        name="eu.clarin.cmdi.vlo.rating.panel.submitTimeout" 
+        description="minimal time (seconds) between submitting the panel and showing it again"
+        value="${VLO_DOCKER_RATING_SUBMIT_TIMEOUT}"/>  
+        
+    <Parameter 
+        name="eu.clarin.cmdi.vlo.rating.service" 
+        description="Name of the service to store along with the ratings"
+        value="${VLO_DOCKER_RATING_SERVICE_NAME}"/>  
+        
+    <Parameter 
+        name="eu.clarin.cmdi.vlo.rating.couchdb.url" 
+        description="CouchDB resource URL"
+        value="${VLO_DOCKER_RATING_COUCHDB_URL}"/>  
+        
+    <Parameter 
+        name="eu.clarin.cmdi.vlo.rating.couchdb.user" 
+        description="CouchDB user name (leave empty for no auth)"
+        value="${VLO_DOCKER_RATING_COUCHDB_USER}"/>             
+        
+    <Parameter 
+        name="eu.clarin.cmdi.vlo.rating.couchdb.password" 
+        description="CouchDB password"
+        value="${VLO_DOCKER_RATING_COUCHDB_PASSWORD}"/>
 </Context>

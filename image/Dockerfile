@@ -6,7 +6,7 @@ ENV VLO_MAPPING_DEFINITIONS_DIST_URL="https://github.com/clarin-eric/VLO-mapping
 	VLO_DOCKER_STATSD_PORT="8125" \
 	STATSD_PREFIX=""
 	
-# VloConfig options
+# VloConfig general options
 ENV	VLO_DOCKER_CONFIG_FILE="/opt/vlo/config/VloConfig.xml" \
 	VLO_DOCKER_MAPPING_BASE_URI="file:/srv/VLO-mapping" \
 	VLO_DOCKER_PUBLIC_HOME_URL="http://localhost:8080" \
@@ -17,11 +17,24 @@ ENV	VLO_DOCKER_CONFIG_FILE="/opt/vlo/config/VloConfig.xml" \
 	VLO_DOCKER_DELETE_ALL_FIRST="false" \
 	VLO_DOCKER_MAX_DAYS_IN_SOLR="7" \
 	VLO_DOCKER_DATAROOTS_FILE="dataroots-production.xml" \
-	VLO_DOCKER_PIWIK_ENABLE_TRACKER="false" \
+	VLO_DOCKER_WICKET_CONFIGURATION="deployment"
+	
+# VloConfig Piwik options
+ENV VLO_DOCKER_PIWIK_ENABLE_TRACKER="false" \
 	VLO_DOCKER_PIWIK_SITE_ID="3" \
 	VLO_DOCKER_PIWIK_HOST="https://stats.clarin.eu/" \
-	VLO_DOCKER_PIWIK_DOMAINS="*.vlo.clarin.eu" \
-	VLO_DOCKER_WICKET_CONFIGURATION="deployment"
+	VLO_DOCKER_PIWIK_DOMAINS="*.vlo.clarin.eu"
+
+# VloConfig user satisfaction ration options
+ENV VLO_DOCKER_RATING_ENABLED="false" \
+	VLO_DOCKER_RATING_SERVICE_NAME="VLO" \
+	VLO_DOCKER_RATING_SHOW_PANEL_DELAY="120" \
+	VLO_DOCKER_RATING_DISMISS_TIMEOUT="604800" \
+	VLO_DOCKER_RATING_SUBMIT_TIMEOUT="2592000" \
+	VLO_DOCKER_RATING_COUCHDB_URL="http://couchdb:5984/ratings" \
+	VLO_DOCKER_RATING_COUCHDB_USER="vlo" \
+	VLO_DOCKER_RATING_COUCHDB_PASSWORD="vlo"
+	
 	
 # This should match the Solr image
 ENV SOLR_USER="solr" \
