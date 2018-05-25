@@ -291,10 +291,10 @@ User satisfaction score elicitation parameters (see https://github.com/clarin-er
 | Minimal time (seconds) between submitting the panel and showing it again
 
 | VLO_DOCKER_RATING_COUCHDB_URL
-| Yes
+| No
 | URL
-| `http://couchdb:5984/ratings`
-| URL of REST resource provided by CouchDB (or other compatible service) where the ratings should be submitted to
+| ``
+| URL of REST resource provided by CouchDB (or other compatible service) where the ratings should be submitted to, e.g. `http://couchdb:5984/ratings`. Unless left empty, the VLO will try to connect on startup and fail if unavailable.
 
 | VLO_DOCKER_RATING_COUCHDB_USER
 | Yes
