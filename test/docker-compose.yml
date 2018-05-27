@@ -33,6 +33,7 @@ services:
       - VLO_DOCKER_SOLR_URL=http://vlo_solr:8983/solr/vlo-index/
       - VLO_DOCKER_PUBLIC_HOME_URL=http://localhost:8080
       - VLO_DOCKER_PIWIK_ENABLE_TRACKER=false
+      - VLO_DOCKER_RATING_ENABLED=false
     depends_on:
       - vlo_solr
     volumes:
@@ -50,7 +51,7 @@ services:
         /bin/echo 'http://vlo_server:8080/;200' >> /etc/checker.conf
         /bin/echo 'http://vlo_server:8080/search;200' >> /etc/checker.conf
         /bin/echo 'http://vlo_server:8080/xyzabc;404' >> /etc/checker.conf
-        /usr/bin/checker http multi --verbose -k -t 30 -T 60
+        /usr/bin/checker http multi --verbose -k -t 60 -T 120
       "
     volumes:
       - test:/test
