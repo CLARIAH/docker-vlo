@@ -36,3 +36,6 @@ if [ ! -z "${VLO_MAPPING_DEFINITIONS_DIST_URL}" ]; then
 else
 	echo "Not retrieving VLO mapping definitions!"
 fi
+
+# Initialise CouchDB (if applicable)
+bash /app/init-couchdb.sh

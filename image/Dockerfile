@@ -54,6 +54,7 @@ COPY webapp/vlo-context.xml /srv/tomcat8/conf/Catalina/localhost/ROOT.xml
 COPY importer.sh /opt/importer.sh
 COPY filter-config-file.sh /opt/filter-config-file.sh
 COPY init.sh /app/init.sh
+COPY init-couchdb.sh /app/init-couchdb.sh
 COPY fluentd/vlo.conf /etc/fluentd/conf.d/vlo.conf
 
 COPY fluentd/vlo.conf /etc/fluentd/conf.d/vlo.conf
