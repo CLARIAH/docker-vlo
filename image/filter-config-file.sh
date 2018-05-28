@@ -36,7 +36,7 @@ do
 	echo $v
 	# ugly eval call to allow looping through options/environment variables and assigning default values if set
 	val=$(eval echo \${${v}\})
-	if [ -z "$val" ]
+	if [ -z "${val+x}" ]
 	then
 		echo "Error: environment variable ${v} not set"
 		exit 1
