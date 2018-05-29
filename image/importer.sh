@@ -37,7 +37,9 @@ if [ ! -z "${VLO_DOCKER_PUBLIC_HOME_URL}" ] && [ ! -z "${VLO_DOCKER_SOLR_URL}" ]
 	cp "/opt/vlo/bin/sitemap-generator/config.properties" "/opt/vlo/bin/sitemap-generator/config.properties.orig"
 	/bin/bash "/opt/filter-config-file.sh" "/opt/vlo/bin/sitemap-generator/config.properties" \
 		VLO_DOCKER_PUBLIC_HOME_URL \
-		VLO_DOCKER_SOLR_URL
+		VLO_DOCKER_SOLR_URL \
+		VLO_DOCKER_SOLR_USER_READ_ONLY \
+		VLO_DOCKER_SOLR_PASSWORD_READ_ONLY
 
 	# Generate sitemap
 	cd /opt/vlo/bin/sitemap-generator/ && \

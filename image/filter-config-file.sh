@@ -47,4 +47,4 @@ done
 
 echo "Substituting placeholder values in ${TARGET_FILE}"
 
-sed -i -e $SED_COMMAND $TARGET_FILE
+sed -i -e "$SED_COMMAND" "$TARGET_FILE"

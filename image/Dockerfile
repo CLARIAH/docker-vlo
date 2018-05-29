@@ -1,6 +1,10 @@
 FROM registry.gitlab.com/clarin-eric/docker-alpine-supervisor-java-tomcat-base:1.0.3
 
-ENV VLO_MAPPING_DEFINITIONS_DIST_URL="https://github.com/clarin-eric/VLO-mapping/archive/master.tar.gz" \
+ENV VLO_DOCKER_SOLR_USER_READ_ONLY="user_read" \
+	VLO_DOCKER_SOLR_PASSWORD_READ_ONLY="secret" \
+	VLO_DOCKER_SOLR_USER_READ_WRITE="user_read" \
+	VLO_DOCKER_SOLR_PASSWORD_READ_WRITE="secret" \
+	VLO_MAPPING_DEFINITIONS_DIST_URL="https://github.com/clarin-eric/VLO-mapping/archive/master.tar.gz" \
 	VLO_MAPPING_DEFINITIONS_DIR="/srv/VLO-mapping" \
 	VLO_DOCKER_STATSD_HOST="" \
 	VLO_DOCKER_STATSD_PORT="8125" \
