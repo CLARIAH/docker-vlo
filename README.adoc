@@ -308,4 +308,10 @@ User satisfaction score elicitation parameters (see https://github.com/clarin-er
 | `vlo`
 | CouchDB (or other compatible service) password
 	
+| VLO_DOCKER_RATING_COUCHDB_INIT
+| Yes
+| Boolean
+| `false`
+| Set to `true` if the container should try to initialise the configured CouchDB service on startup. Note that this will not destroy or affect in any way an already initialised instance.
+	
 |===

@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
 set -e
 
-#	VLO_DOCKER_RATING_COUCHDB_URL
-#	VLO_DOCKER_RATING_COUCHDB_USER
-#	VLO_DOCKER_RATING_COUCHDB_PASSWORD
-
 AUTH=":"
 if [ -n "$VLO_DOCKER_RATING_COUCHDB_USER" ]; then
 	AUTH="$VLO_DOCKER_RATING_COUCHDB_USER"
@@ -13,21 +9,10 @@ if [ -n "$VLO_DOCKER_RATING_COUCHDB_USER" ]; then
 	fi
 fi
 
-function main {
-	if [ -n "$VLO_DOCKER_RATING_COUCHDB_URL" ]; then
-		waitForServer
-		initServer
-	else
-		echo "VLO_DOCKER_RATING_COUCHDB_URL not set, will not check"
-	fi
-}
-
 function waitForServer {
 	ATTEMPTS=60
 	SLEEP_INTERVAL=2
 	COUNT=0
-	
-
 
 	echo "Checking CouchDB connection at $VLO_DOCKER_RATING_COUCHDB_URL"
 	while ! curl -u ${AUTH} --output /dev/null --silent --head --fail "$VLO_DOCKER_RATING_COUCHDB_URL/.."; do
@@ -40,6 +25,13 @@ function waitForServer {
 	done
 }
 
+function initServer {
+	createResourceIfDoesNotExist "$VLO_DOCKER_RATING_COUCHDB_URL"/../_users
+	createResourceIfDoesNotExist "$VLO_DOCKER_RATING_COUCHDB_URL"/../_replicator
+	createResourceIfDoesNotExist "$VLO_DOCKER_RATING_COUCHDB_URL"/../_global_changes
+	createResourceIfDoesNotExist "$VLO_DOCKER_RATING_COUCHDB_URL"
+}
+
 function createResourceIfDoesNotExist {
 	URL=$1
 	if curl -u ${AUTH} --output /dev/null --silent --head --fail "$URL"; then
@@ -50,11 +42,19 @@ function createResourceIfDoesNotExist {
 	fi
 }
 
-function initServer {
-	createResourceIfDoesNotExist "$VLO_DOCKER_RATING_COUCHDB_URL"/../_users
-	createResourceIfDoesNotExist "$VLO_DOCKER_RATING_COUCHDB_URL"/../_replicator
-	createResourceIfDoesNotExist "$VLO_DOCKER_RATING_COUCHDB_URL"/../_global_changes
-	createResourceIfDoesNotExist "$VLO_DOCKER_RATING_COUCHDB_URL"
+function main {
+	if [ "$VLO_DOCKER_RATING_COUCHDB_INIT" != "true" ]; then
+		echo "Not initialising CouchDB (set VLO_DOCKER_RATING_COUCHDB_INIT to 'true' if you do want this)"
+		exit 0
+	fi
+	
+	if [ -n "$VLO_DOCKER_RATING_COUCHDB_URL" ]; then
+		waitForServer
+		initServer
+	else
+		echo "VLO_DOCKER_RATING_COUCHDB_URL not set, cannot initialise"
+		exit 1
+	fi
 }
 
 main
