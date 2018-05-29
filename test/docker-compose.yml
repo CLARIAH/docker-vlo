@@ -23,6 +23,8 @@ services:
       - test:/test
       - solr-home-provisioning:${SOLR_HOME_PROVISIONING_PATH}
       - vlo-solr-data:$SOLR_DATA_HOME
+      # credentials stored in here match those provided to the vlo_server service
+      - ./solr-security.json:${SOLR_HOME_PROVISIONING_PATH}/security.json
     networks:
       - "vlo_server"
 
@@ -34,6 +36,11 @@ services:
       - VLO_DOCKER_PUBLIC_HOME_URL=http://localhost:8080
       - VLO_DOCKER_PIWIK_ENABLE_TRACKER=false
       - VLO_DOCKER_RATING_ENABLED=false
+      # credentials match hashes in security.json
+      - VLO_DOCKER_SOLR_USER_READ_ONLY=user_read
+      - VLO_DOCKER_SOLR_PASSWORD_READ_ONLY=read
+      - VLO_DOCKER_SOLR_USER_READ_WRITE=user_rw
+      - VLO_DOCKER_SOLR_PASSWORD_READ_WRITE=rw
     depends_on:
       - vlo_solr
     volumes:
