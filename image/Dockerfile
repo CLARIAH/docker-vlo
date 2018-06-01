@@ -44,9 +44,7 @@ ENV VLO_DOCKER_RATING_ENABLED="false" \
 ENV SOLR_USER="solr" \
     SOLR_UID="8983"
 
-RUN	apk update \
- && apk upgrade \
- && apk add --update \
+RUN	apk add --update \
  		jq
 
 RUN rm -r /srv/tomcat8/webapps/ROOT
@@ -59,8 +57,6 @@ COPY importer.sh /opt/importer.sh
 COPY filter-config-file.sh /opt/filter-config-file.sh
 COPY init.sh /app/init.sh
 COPY init-couchdb.sh /app/init-couchdb.sh
-COPY fluentd/vlo.conf /etc/fluentd/conf.d/vlo.conf
-
 COPY fluentd/vlo.conf /etc/fluentd/conf.d/vlo.conf
 
 
