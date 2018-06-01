@@ -57,12 +57,15 @@ COPY importer.sh /opt/importer.sh
 COPY filter-config-file.sh /opt/filter-config-file.sh
 COPY init.sh /app/init.sh
 COPY init-couchdb.sh /app/init-couchdb.sh
+COPY get-satisfaction-scores.sh /app/get-satisfaction-scores.sh
+
 COPY fluentd/vlo.conf /etc/fluentd/conf.d/vlo.conf
 
 
 RUN chmod u+x /opt/importer.sh \
  && chmod u+x /opt/filter-config-file.sh \
- && chmod u+x /app/init.sh
+ && chmod u+x /app/init.sh \
+ && chmod u+x /app/get-satisfaction-scores.sh
 
 # Solr home should be sharable with Solr image, which uses the 'solr' user...
 RUN adduser -D -u $SOLR_UID $SOLR_USER \
