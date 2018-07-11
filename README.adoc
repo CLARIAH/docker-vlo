@@ -132,6 +132,12 @@ These are to be passed as environment variables. The `VloConfig.xml` file and ot
 | `/srv/VLO-mapping`
 | Path within container where VLO mapping files are read from and/or retrieved to
 
+| VLO_DOCKER_WICKET_BOTTOM_SNIPPET_URL
+| Yes
+| URL
+| ``
+| Location of a HTML snippet included after the closing 'body' tag in every page 
+
 |===
 
 Parameters that are used to filter `VloConfig.xml`:
