@@ -29,17 +29,6 @@ ENV VLO_DOCKER_PIWIK_ENABLE_TRACKER="false" \
 	VLO_DOCKER_PIWIK_SITE_ID="3" \
 	VLO_DOCKER_PIWIK_HOST="https://stats.clarin.eu/" \
 	VLO_DOCKER_PIWIK_DOMAINS="*.vlo.clarin.eu"
-
-# VloConfig user satisfaction ration options
-ENV VLO_DOCKER_RATING_ENABLED="false" \
-	VLO_DOCKER_RATING_SERVICE_NAME="VLO" \
-	VLO_DOCKER_RATING_SHOW_PANEL_DELAY="120" \
-	VLO_DOCKER_RATING_DISMISS_TIMEOUT="604800" \
-	VLO_DOCKER_RATING_SUBMIT_TIMEOUT="2592000" \
-	VLO_DOCKER_RATING_COUCHDB_URL="" \
-	VLO_DOCKER_RATING_COUCHDB_USER="vlo" \
-	VLO_DOCKER_RATING_COUCHDB_PASSWORD="vlo" \
-	VLO_DOCKER_RATING_COUCHDB_INIT="false"	
 	
 # This should match the Solr image
 ENV SOLR_USER="solr" \
@@ -57,16 +46,13 @@ COPY webapp/vlo-context.xml /srv/tomcat8/conf/Catalina/localhost/ROOT.xml
 COPY importer.sh /opt/importer.sh
 COPY filter-config-file.sh /opt/filter-config-file.sh
 COPY init.sh /app/init.sh
-COPY init-couchdb.sh /app/init-couchdb.sh
-COPY get-satisfaction-scores.sh /app/get-satisfaction-scores.sh
 
 COPY fluentd/vlo.conf /etc/fluentd/conf.d/vlo.conf
 
 
 RUN chmod u+x /opt/importer.sh \
  && chmod u+x /opt/filter-config-file.sh \
- && chmod u+x /app/init.sh \
- && chmod u+x /app/get-satisfaction-scores.sh
+ && chmod u+x /app/init.sh
 
 # Solr home should be sharable with Solr image, which uses the 'solr' user...
 RUN adduser -D -u $SOLR_UID $SOLR_USER \
