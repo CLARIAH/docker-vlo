@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/clarin-eric/docker-alpine-supervisor-java-tomcat-base:1.0.3
+FROM registry.gitlab.com/clarin-eric/docker-alpine-supervisor-java-tomcat-base:1.0.6
 
 ENV VLO_DOCKER_SOLR_USER_READ_ONLY="user_read" \
 	VLO_DOCKER_SOLR_PASSWORD_READ_ONLY="secret" \
@@ -45,14 +45,14 @@ COPY webapp/statistics-config.properties /opt/vlo/bin/statistics/config.properti
 COPY webapp/vlo-context.xml /srv/tomcat8/conf/Catalina/localhost/ROOT.xml
 COPY importer.sh /opt/importer.sh
 COPY filter-config-file.sh /opt/filter-config-file.sh
-COPY init.sh /app/init.sh
+COPY vlo-init.sh /init/vlo-init.sh
 
 COPY fluentd/vlo.conf /etc/fluentd/conf.d/vlo.conf
 
 
 RUN chmod u+x /opt/importer.sh \
  && chmod u+x /opt/filter-config-file.sh \
- && chmod u+x /app/init.sh
+ && chmod u+x /init/vlo-init.sh
 
 # Solr home should be sharable with Solr image, which uses the 'solr' user...
 RUN adduser -D -u $SOLR_UID $SOLR_USER \
