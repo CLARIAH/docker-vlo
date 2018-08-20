@@ -12,6 +12,7 @@ else
 fi
 
 #Run importer
+export IMPORTER_JAVA_OPTS="${VLO_DOCKER_IMPORTER_JAVA_OPTS}"
 cd /opt/vlo/bin/ && \
 nice sh vlo_solr_importer.sh > $IMPORTER_SCRIPT_LOG_FILE 2>&1
 

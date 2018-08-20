@@ -20,6 +20,7 @@ ENV	VLO_DOCKER_CONFIG_FILE="/opt/vlo/config/VloConfig.xml" \
 	VLO_DOCKER_SOLR_PASSWORD_READ_ONLY="secret" \
 	VLO_DOCKER_SOLR_USER_READ_WRITE="user_read" \
 	VLO_DOCKER_SOLR_PASSWORD_READ_WRITE="secret" \
+	VLO_DOCKER_IMPORTER_JAVA_OPTS="" \
 	VLO_DOCKER_TOMCAT_JAVA_OPTS=""
 
 # VloConfig Statsd reporting options

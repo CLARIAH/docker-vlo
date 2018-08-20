@@ -40,6 +40,10 @@ filter_file ${CATALINA_BASE}/conf/Catalina/localhost/ROOT.xml \
 # Tomcat env
 filter_file ${CATALINA_BASE}/bin/setenv.sh \
 	VLO_DOCKER_TOMCAT_JAVA_OPTS
+	
+# Importer
+filter_file /opt/importer.sh \
+	VLO_DOCKER_IMPORTER_JAVA_OPTS
 
 # Update mapping definitions
 if [ ! -z "${VLO_MAPPING_DEFINITIONS_DIST_URL}" ]; then
