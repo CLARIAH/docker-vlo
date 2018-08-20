@@ -1,8 +1,19 @@
 #!/bin/sh
 set -e
 
+filter_file() {
+	TARGET_FILE=$1
+	shift
+	if [ -e "$TARGET_FILE" ]; then
+		/bin/bash /opt/filter-config-file.sh  $TARGET_FILE $@
+	else
+		echo "ERROR: file not found, cannot filter: $TARGET_FILE"
+		exit 1
+	fi
+}
+
 # Filter VLO configuration
-/bin/bash /opt/filter-config-file.sh ${VLO_DOCKER_CONFIG_FILE} \
+filter_file ${VLO_DOCKER_CONFIG_FILE} \
 	VLO_DOCKER_SOLR_URL \
 	VLO_DOCKER_SOLR_USER_READ_ONLY \
 	VLO_DOCKER_SOLR_PASSWORD_READ_ONLY \
@@ -17,7 +28,7 @@ set -e
 	VLO_DOCKER_MAX_DAYS_IN_SOLR \
 	VLO_DOCKER_DATAROOTS_FILE
 
-/bin/bash /opt/filter-config-file.sh /srv/tomcat8/conf/Catalina/localhost/ROOT.xml \
+filter_file ${CATALINA_BASE}/conf/Catalina/localhost/ROOT.xml \
 	VLO_DOCKER_CONFIG_FILE \
 	VLO_DOCKER_WICKET_CONFIGURATION \
 	VLO_DOCKER_WICKET_BOTTOM_SNIPPET_URL \
@@ -25,6 +36,10 @@ set -e
 	VLO_DOCKER_PIWIK_SITE_ID \
 	VLO_DOCKER_PIWIK_HOST \
 	VLO_DOCKER_PIWIK_DOMAINS
+
+# Tomcat env
+filter_file ${CATALINA_BASE}/bin/setenv.sh \
+	VLO_DOCKER_TOMCAT_JAVA_OPTS
 
 # Update mapping definitions
 if [ ! -z "${VLO_MAPPING_DEFINITIONS_DIST_URL}" ]; then
