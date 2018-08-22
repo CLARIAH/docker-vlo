@@ -126,6 +126,18 @@ These are to be passed as environment variables. The `VloConfig.xml` file and ot
 | `https://github.com/clarin-eric/VLO-mapping/archive/master.tar.gz`
 | Specify the location of the tarball from which VLO mapping definitions are retrieved on startup and before import (leave empty to skip retrieval, e.g. when using a remote location - see `VLO_DOCKER_MAPPING_BASE_URI` parameter)
 
+| VLO_DOCKER_TOMCAT_JAVA_OPTS
+| No
+| String
+| ``
+| Specify Java VM options for Tomcat, for example memory options - for example: `-Xmx2G`
+
+| VLO_DOCKER_IMPORTER_JAVA_OPTS
+| No
+| String
+| ``
+| Specify Java VM options for the importer, for example memory options - for example: `-Xmx4G`
+
 | VLO_MAPPING_DEFINITIONS_DIR
 | Yes
 | String
