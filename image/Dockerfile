@@ -1,5 +1,5 @@
-FROM registry.gitlab.com/clarin-eric/docker-alpine-supervisor-java-tomcat-base:1.0.6
-
+#FROM registry.gitlab.com/clarin-eric/docker-alpine-supervisor-java-tomcat-base:1.0.6
+FROM registry.gitlab.com/twagoo/docker-alpine-supervisor-java-tomcat-base:1.0.7-alpha1
 
 # VloConfig general options
 ENV	VLO_DOCKER_CONFIG_FILE="/opt/vlo/config/VloConfig.xml" \
