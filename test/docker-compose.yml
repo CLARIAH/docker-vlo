@@ -25,9 +25,9 @@ services:
       # credentials stored in here match those provided to the vlo_server service
       - ./solr-security.json:${SOLR_HOME_PROVISIONING_PATH}/security.json
     networks:
-      - "vlo_server"
+      - "vlo-server-network"
 
-  vlo_server:
+  vlo-server:
     image: "${IMAGE_QUALIFIED_NAME}"
     command: --test
     environment:
@@ -45,24 +45,24 @@ services:
     volumes:
       - test:/test
     networks:
-      - "vlo_server"
+      - "vlo-server-network"
 
   vlo-test1:
     image: "registry.gitlab.com/clarin-eric/docker-tester:1.2.0"
     depends_on:
-        - vlo_server
+        - vlo-server
     entrypoint: /bin/bash -c "/bin/bash -c \"$${@}\""
     command: |
       bash -c "
-        /bin/echo 'http://vlo_server:8080/;200' >> /etc/checker.conf
-        /bin/echo 'http://vlo_server:8080/search;200' >> /etc/checker.conf
-        /bin/echo 'http://vlo_server:8080/xyzabc;404' >> /etc/checker.conf
+        /bin/echo 'http://vlo-server:8080/;200' >> /etc/checker.conf
+        /bin/echo 'http://vlo-server:8080/search;200' >> /etc/checker.conf
+        /bin/echo 'http://vlo-server:8080/xyzabc;404' >> /etc/checker.conf
         /usr/bin/checker http multi --verbose -k -t 60 -T 120
       "
     volumes:
       - test:/test
     networks:
-      - "vlo_server"
+      - "vlo-server-network"
 
 volumes:
   test:
@@ -73,5 +73,5 @@ volumes:
     external: false
 
 networks:
-  vlo_server:
+  vlo-server-network:
     external: false
