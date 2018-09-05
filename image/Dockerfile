@@ -1,7 +1,20 @@
 #FROM registry.gitlab.com/clarin-eric/docker-alpine-supervisor-java-tomcat-base:1.0.6
 FROM registry.gitlab.com/twagoo/docker-alpine-supervisor-java-tomcat-base:1.0.7-alpha1
 
-# VloConfig general options
+# General options
+ENV	VLO_MAPPING_DEFINITIONS_DIST_URL="https://github.com/clarin-eric/VLO-mapping/archive/master.tar.gz" \
+	VLO_MAPPING_DEFINITIONS_DIR="/srv/VLO-mapping" \
+	VLO_DOCKER_WICKET_CONFIGURATION="deployment" \
+	VLO_DOCKER_WICKET_BOTTOM_SNIPPET_URL="" \
+	VLO_DOCKER_SOLR_USER_READ_ONLY="user_read" \
+	VLO_DOCKER_SOLR_PASSWORD_READ_ONLY="secret" \
+	VLO_DOCKER_SOLR_USER_READ_WRITE="user_read" \
+	VLO_DOCKER_SOLR_PASSWORD_READ_WRITE="secret" \
+	VLO_DOCKER_IMPORTER_JAVA_OPTS="" \
+	VLO_DOCKER_TOMCAT_JAVA_OPTS="" \
+	VLO_DOCKER_IMPORTER_LOG_LEVEL="INFO"
+
+# VloConfig options
 ENV	VLO_DOCKER_CONFIG_FILE="/opt/vlo/config/VloConfig.xml" \
 	VLO_DOCKER_MAPPING_BASE_URI="file:/srv/VLO-mapping" \
 	VLO_DOCKER_PUBLIC_HOME_URL="http://localhost:8080" \
@@ -11,17 +24,7 @@ ENV	VLO_DOCKER_CONFIG_FILE="/opt/vlo/config/VloConfig.xml" \
 	VLO_DOCKER_SOLR_THREADS="2" \
 	VLO_DOCKER_DELETE_ALL_FIRST="false" \
 	VLO_DOCKER_MAX_DAYS_IN_SOLR="7" \
-	VLO_DOCKER_DATAROOTS_FILE="dataroots-production.xml" \
-	VLO_MAPPING_DEFINITIONS_DIST_URL="https://github.com/clarin-eric/VLO-mapping/archive/master.tar.gz" \
-	VLO_MAPPING_DEFINITIONS_DIR="/srv/VLO-mapping" \
-	VLO_DOCKER_WICKET_CONFIGURATION="deployment" \
-	VLO_DOCKER_WICKET_BOTTOM_SNIPPET_URL="" \
-	VLO_DOCKER_SOLR_USER_READ_ONLY="user_read" \
-	VLO_DOCKER_SOLR_PASSWORD_READ_ONLY="secret" \
-	VLO_DOCKER_SOLR_USER_READ_WRITE="user_read" \
-	VLO_DOCKER_SOLR_PASSWORD_READ_WRITE="secret" \
-	VLO_DOCKER_IMPORTER_JAVA_OPTS="" \
-	VLO_DOCKER_TOMCAT_JAVA_OPTS=""
+	VLO_DOCKER_DATAROOTS_FILE="dataroots-production.xml"
 
 # VloConfig Statsd reporting options
 ENV VLO_DOCKER_STATSD_HOST="" \
