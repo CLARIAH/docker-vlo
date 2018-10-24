@@ -1,5 +1,4 @@
-#FROM registry.gitlab.com/clarin-eric/docker-alpine-supervisor-java-tomcat-base:1.0.6
-FROM registry.gitlab.com/twagoo/docker-alpine-supervisor-java-tomcat-base:1.0.7-alpha1
+FROM registry.gitlab.com/clarin-eric/docker-alpine-supervisor-java-tomcat-base:1.1.1
 
 # VloConfig general options
 ENV	VLO_DOCKER_CONFIG_FILE="/opt/vlo/config/VloConfig.xml" \
@@ -21,7 +20,14 @@ ENV	VLO_DOCKER_CONFIG_FILE="/opt/vlo/config/VloConfig.xml" \
 	VLO_DOCKER_SOLR_USER_READ_WRITE="user_read" \
 	VLO_DOCKER_SOLR_PASSWORD_READ_WRITE="secret" \
 	VLO_DOCKER_IMPORTER_JAVA_OPTS="" \
-	VLO_DOCKER_TOMCAT_JAVA_OPTS=""
+	VLO_DOCKER_TOMCAT_JAVA_OPTS="" \
+	VLO_DOCKER_VCR_MAXIMUM_ITEMS_COUNT="1000" \
+	VLO_DOCKER_CONCEPT_REGISTRY_URL="https://concepts.clarin.eu/ccr/api/find-concepts" \
+	VLO_DOCKER_VOCABULARY_REGISTRY_URL="http://clavas.clarin.eu/clavas/public/api/find-concepts" \
+	VLO_DOCKER_FEEDBACK_FORM_URL="http://www.clarin.eu/node/3759?url=" \
+	VLO_DOCKER_FCS_BASE_URL="https://spraakbanken.gu.se/ws/fcs/2.0/aggregator/" \
+	VLO_DOCKER_LRS_BASE_URL="https://switchboard.clarin.eu/" \
+	VLO_DOCKER_VCR_SUBMIT_ENDPOINT="https://clarin.ids-mannheim.de/vcr/service/submit"
 
 # VloConfig Statsd reporting options
 ENV VLO_DOCKER_STATSD_HOST="" \
