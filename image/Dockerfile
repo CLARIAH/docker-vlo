@@ -71,6 +71,7 @@ COPY webapp/vlo-context.xml ${CATALINA_BASE}/conf/Catalina/localhost/ROOT.xml
 COPY tomcat/setenv.sh ${CATALINA_BASE}/bin/setenv.sh
 COPY importer.sh /opt/importer.sh
 COPY filter-config-file.sh /opt/filter-config-file.sh
+COPY querysolr.sh /opt/querysolr.sh
 COPY vlo-init.sh /init/vlo-init.sh
 
 COPY fluentd/vlo.conf /etc/fluentd/conf.d/vlo.conf
@@ -78,7 +79,8 @@ COPY fluentd/vlo.conf /etc/fluentd/conf.d/vlo.conf
 
 RUN chmod u+x /opt/importer.sh \
  && chmod u+x /opt/filter-config-file.sh \
- && chmod u+x /init/vlo-init.sh
+ && chmod u+x /init/vlo-init.sh \
+ && chmod u+x /opt/querysolr.sh
 
 # Solr home should be sharable with Solr image, which uses the 'solr' user...
 RUN adduser -D -u $SOLR_UID $SOLR_USER \
