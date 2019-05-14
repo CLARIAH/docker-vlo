@@ -41,6 +41,9 @@ ENV	VLO_DOCKER_CONFIG_FILE="/opt/vlo/config/VloConfig.xml" \
 	VLO_DOCKER_FCS_BASE_URL="https://spraakbanken.gu.se/ws/fcs/2.0/aggregator/" \
 	VLO_DOCKER_LRS_BASE_URL="https://switchboard.clarin.eu/" \
 	VLO_DOCKER_VCR_SUBMIT_ENDPOINT="https://clarin.ids-mannheim.de/vcr/service/submit" \
+	VLO_DOCKER_CENTRE_REGISTRY_CENTRES_LIST_JSON_URL="https://centres.clarin.eu/api/model/Centre" \
+	VLO_DOCKER_CENTRE_REGISTRY_OAI_PMH_ENDPOINTS_LIST_JSON_URL="https://centres.clarin.eu/api/model/OAIPMHEndpoint" \
+	VLO_DOCKER_OTHER_PROVIDERS_MARKUP_FILE="" \
 	VLO_DOCKER_LINK_CHECKER_MONGO_DB_NAME="" \
 	VLO_DOCKER_LINK_CHECKER_MONGO_DB_CONNECTION_STRING=""
 
