@@ -40,7 +40,7 @@ ENV	VLO_DOCKER_CONFIG_FILE="/opt/vlo/config/VloConfig.xml" \
 	VLO_DOCKER_FEEDBACK_FORM_URL="http://www.clarin.eu/node/3759?url=" \
 	VLO_DOCKER_FCS_BASE_URL="https://spraakbanken.gu.se/ws/fcs/2.0/aggregator/" \
 	VLO_DOCKER_LRS_BASE_URL="https://switchboard.clarin.eu/" \
-	VLO_DOCKER_VCR_SUBMIT_ENDPOINT="https://clarin.ids-mannheim.de/vcr/service/submit" \
+	VLO_DOCKER_VCR_SUBMIT_ENDPOINT="https://collections.clarin.eu/app/submit/extensional" \
 	VLO_DOCKER_CENTRE_REGISTRY_CENTRES_LIST_JSON_URL="https://centres.clarin.eu/api/model/Centre" \
 	VLO_DOCKER_CENTRE_REGISTRY_OAI_PMH_ENDPOINTS_LIST_JSON_URL="https://centres.clarin.eu/api/model/OAIPMHEndpoint" \
 	VLO_DOCKER_OTHER_PROVIDERS_MARKUP_FILE="" \
@@ -69,7 +69,7 @@ RUN	apk add --update \
 
 RUN rm -r ${CATALINA_BASE}/webapps/ROOT
 
-COPY webapp/vlo/ /opt/vlo
+COPY webapp/vlo/ ${VLO_BASE}
 COPY webapp/sitemap-config.properties ${VLO_BASE}/bin/sitemap-generator/config.properties
 COPY webapp/statistics-config.properties ${VLO_BASE}/bin/statistics/config.properties
 COPY webapp/vlo-context.xml ${CATALINA_BASE}/conf/Catalina/localhost/ROOT.xml

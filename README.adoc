@@ -30,8 +30,8 @@
 
 | by necessity
 | image
-| https://github.com/gliderlabs/docker-alpine[`gliderlabs/alpine`]
-| ==3.4
+| https://gitlab.com/CLARIN-ERIC/docker-alpine-supervisor-java-tomcat-base/[docker-alpine-supervisor-java-tomcat-base]
+| ==1.2.0
 
 | for Docker Engine interaction
 | software
@@ -40,13 +40,18 @@
 
 | for releases
 | platform
-| https://about.gitlab.[GitLab CI]
+| https://about.gitlab.com/[GitLab CI]
 | ==8.10.4
+
+| for releases
+| platform
+| https://gitlab.com/CLARIN-ERIC/build-script[build-script]
+| ==1.0.17
 
 | for operation
 | service
 | https://lucene.apache.org/solr/[Apache Solr]
-| >=7.0.0
+| >=7.6.0
 
 |===
 
@@ -138,6 +143,12 @@ These are to be passed as environment variables. The `VloConfig.xml` file and ot
 | ``
 | Specify Java VM options for the importer, for example memory options - for example: `-Xmx4G`
 
+| VLO_DOCKER_IMPORTER_LOG_LEVEL
+| No
+| String
+| ``
+| Log level for VLO importer (`TRACE`, `DEBUG`, `INFO`, `WARN`, `ERROR`)
+
 | VLO_MAPPING_DEFINITIONS_DIR
 | Yes
 | String
@@ -149,6 +160,30 @@ These are to be passed as environment variables. The `VloConfig.xml` file and ot
 | URL
 | ``
 | Location of a HTML snippet included after the closing 'body' tag in every page 
+
+| VLO_DOCKER_SOLR_USER_READ_ONLY
+| Yes
+| String
+| ``
+| Username for Solr read-only user
+
+| VLO_DOCKER_SOLR_PASSWORD_READ_ONLY
+| Yes
+| String
+| ``
+| Password for Solr read-only user
+
+| VLO_DOCKER_SOLR_USER_READ_WRITE
+| Yes
+| String
+| ``
+|  Username for Solr read-write user
+
+| VLO_DOCKER_SOLR_PASSWORD_READ_WRITE
+| Yes
+| String
+| ``
+| Password for Solr read-write user
 
 |===
 
@@ -209,6 +244,54 @@ Parameters that are used to filter `VloConfig.xml`:
 | filename (absolute or relative to `VloConfig.xml`) that defines the data roots; this can be one of the shipped data root definitions or your own custom definition from a volume or mount
 - for example: `dataroots-production.xml`
 - or: `/srv/myconfig/dataroots.xml`
+
+| VLO_DOCKER_OTHER_PROVIDERS_MARKUP_FILE
+| No
+| String
+| ``
+| Path of markup file for other contributors (non-centres)
+
+|===
+
+Links to external services:
+
+|===
+
+| VLO_DOCKER_VCR_SUBMIT_ENDPOINT
+| Yes
+| URL
+| `https://clarin.ids-mannheim.de/vcr/service/submit`
+| Virtual Collection Registry submission endpoint
+
+| VLO_DOCKER_VCR_MAXIMUM_ITEMS_COUNT
+| Yes
+| String
+| `https://clarin.ids-mannheim.de/vcr/service/submit`
+| Maximum number of items to allow for submission to VCR
+
+| VLO_DOCKER_CENTRE_REGISTRY_CENTRES_LIST_JSON_URL
+| Yes
+| URL
+| `https://centres.clarin.eu/api/model/Centre`
+| URL of centres list
+
+| VLO_DOCKER_CENTRE_REGISTRY_OAI_PMH_ENDPOINTS_LIST_JSON_URL
+| Yes
+| URL
+| `https://centres.clarin.eu/api/model/OAIPMHEndpoint`
+| URL of list of OAI-PMH endpoints of centres
+
+| VLO_DOCKER_FCS_BASE_URL
+| Yes
+| URL
+| `https://spraakbanken.gu.se/ws/fcs/2.0/aggregator/`
+| Federated content search base URL 
+
+| VLO_DOCKER_LRS_BASE_URL
+| Yes
+| String
+| `https://switchboard.clarin.eu/`
+| 
 
 |===
 
@@ -271,3 +354,9 @@ https://www.piwik.org[Piwik] (access statistics gathering) parameters:
 | Domain(s) to report for
 
 |===
+
+Connection to link checker database for updating resource availability status:
+
+	VLO_DOCKER_LINK_CHECKER_MONGO_DB_NAME="" \
+	VLO_DOCKER_LINK_CHECKER_MONGO_DB_CONNECTION_STRING=""
+
