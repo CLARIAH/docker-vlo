@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/clarin-eric/docker-alpine-supervisor-java-tomcat-base:1.2.0
+FROM registry.gitlab.com/clarin-eric/docker-alpine-supervisor-java-tomcat-base:1.3.0-alpha1
 
 # General options
 ENV	VLO_MAPPING_DEFINITIONS_DIST_URL="https://github.com/clarin-eric/VLO-mapping/archive/master.tar.gz" \
