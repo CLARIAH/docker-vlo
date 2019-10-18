@@ -225,6 +225,13 @@ Parameters that are used to filter `VloConfig.xml`:
 | `2`
 | number of Solr threads (0.5 to 1.0 times the number of file processing threads seems to be a good rule of thumb)
 
+| VLO_DOCKER_AVAILABILITY_STATUS_UPDATE_BATCH_SIZE
+| Yes
+| Integer
+| `25`
+| number of records to process in batch when updating the resource availability status
+
+
 | VLO_DOCKER_DELETE_ALL_FIRST
 | Yes
 | Boolean
