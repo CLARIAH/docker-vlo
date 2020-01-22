@@ -71,10 +71,10 @@ ENV SOLR_USER="solr" \
     
 ENV VLO_BASE="/opt/vlo"
 
-RUN	apk add --update \
- 		jq
+RUN	apk add --no-cache \
+ 		jq=1.6-r0
 
-RUN rm -r ${CATALINA_BASE}/webapps/ROOT
+RUN rm -r "${CATALINA_BASE}/webapps/ROOT"
 
 COPY webapp/vlo/ ${VLO_BASE}
 COPY webapp/sitemap-config.properties ${VLO_BASE}/bin/sitemap-generator/config.properties
