@@ -1,6 +1,25 @@
 #!/bin/sh
 set -e
 
+SOLR_PORT_WAIT_TIMEOUT="300"
+SOLR_CHECK_INTERVAL="5"
+SOLR_CHECK_PATH="fast?q=*:*&rows=0"
+
+wait_for_solr() {
+	HOST_PORT="$(echo "${VLO_DOCKER_SOLR_URL}" | sed -E 's_https?://([^/:]+:[0-9]+).*_\1_g')"
+	echo "Checking/waiting for Solr service at ${HOST_PORT} (extracted from ${VLO_DOCKER_SOLR_URL}). Timeout: ${SOLR_PORT_WAIT_TIMEOUT}s"
+	wait-for "${HOST_PORT}"  -t "${SOLR_PORT_WAIT_TIMEOUT}"
+	
+	SOLR_TEST_URL="${VLO_DOCKER_SOLR_URL}${SOLR_CHECK_PATH}"
+	echo "Checking/wating for Solr response at ${SOLR_TEST_URL} (user: ${VLO_DOCKER_SOLR_USER_READ_ONLY})"
+	while ! curl -lfs -u "${VLO_DOCKER_SOLR_USER_READ_ONLY}:${VLO_DOCKER_SOLR_PASSWORD_READ_ONLY}" "${SOLR_TEST_URL}" > /dev/null 2>&1; do
+		echo "REST not available (yet). Exit code: $?"
+		sleep "${SOLR_CHECK_INTERVAL}"
+	done
+	
+	echo "Confirmed availability of REST service at ${SOLR_TEST_URL}"
+}
+
 filter_file() {
 	TARGET_FILE=$1
 	shift
@@ -70,4 +89,10 @@ if [ ! -z "${VLO_MAPPING_DEFINITIONS_DIST_URL}" ]; then
 	curl -L "${VLO_MAPPING_DEFINITIONS_DIST_URL}" | tar zxvf - --strip-components=1
 else
 	echo "Not retrieving VLO mapping definitions!"
+fi
+
+if [ "${VLO_DOCKER_SKIP_WAIT_FOR_SOLR}" = 'true' ]; then
+	echo "NOT waiting for Solr (VLO_DOCKER_SKIP_WAIT_FOR_SOLR=${VLO_DOCKER_SKIP_WAIT_FOR_SOLR})"
+else
+	wait_for_solr
 fi
