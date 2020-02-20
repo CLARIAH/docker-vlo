@@ -73,7 +73,8 @@ ENV SOLR_USER="solr" \
 ENV VLO_BASE="/opt/vlo"
 
 RUN	apk add --no-cache \
- 		jq=1.6-r0
+ 		jq=1.6-r0 \
+ 	&& pip install yq==2.10.0
 
 RUN rm -r "${CATALINA_BASE}/webapps/ROOT"
 
@@ -84,8 +85,10 @@ COPY webapp/vlo-context.xml ${CATALINA_BASE}/conf/Catalina/localhost/ROOT.xml
 COPY tomcat/setenv.sh ${CATALINA_BASE}/bin/setenv.sh
 COPY importer.sh /opt/importer.sh
 COPY filter-config-file.sh /opt/filter-config-file.sh
+COPY filter-properties-to-xml.sh /opt/filter-properties-to-xml.sh
 COPY querysolr.sh /opt/querysolr.sh
 COPY vlo-init.sh /init/vlo-init.sh
+COPY VloConfig-filter-rules.txt /init/VloConfig-filter-rules.txt
 
 COPY fluentd/vlo.conf /etc/fluentd/conf.d/vlo.conf
 
