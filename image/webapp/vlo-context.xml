@@ -3,39 +3,39 @@
 
     <Parameter 
         name="eu.carlin.cmdi.vlo.config.location" 
-        value="${VLO_DOCKER_CONFIG_FILE}"/>
+        value="{{VLO_DOCKER_CONFIG_FILE}}"/>
 
     <!-- Wicket deployment mode: development or deployment
         see https://ci.apache.org/projects/wicket/guide/6.x/guide/maven.html
     -->
     <Parameter 
         name="configuration" 
-        value="${VLO_DOCKER_WICKET_CONFIGURATION}"/>
+        value="{{VLO_DOCKER_WICKET_CONFIGURATION}}"/>
         
     <Parameter 
         name="eu.clarin.cmdi.vlo.snippets.bottom.file" 
         description="File URL for bottom snippets content (below body tag) e.g. file:///my/vlo/snippets/bottom.html"
-        value="${VLO_DOCKER_WICKET_BOTTOM_SNIPPET_URL}"/>    
+        value="{{VLO_DOCKER_WICKET_BOTTOM_SNIPPET_URL}}"/>    
 
     <!-- Piwik configuration, see https://piwik.org and https://stats.clarin.eu -->
         <Parameter 
             name="eu.clarin.cmdi.vlo.piwik.enableTracker" 
             description="'true' or 'false', defaults to 'false'"
-            value="${VLO_DOCKER_PIWIK_ENABLE_TRACKER}"/>
+            value="{{VLO_DOCKER_PIWIK_ENABLE_TRACKER}}"/>
 
         <Parameter 
             name="eu.clarin.cmdi.vlo.piwik.siteId" 
             description="defaults to '3'"
-            value="${VLO_DOCKER_PIWIK_SITE_ID}"/>
+            value="{{VLO_DOCKER_PIWIK_SITE_ID}}"/>
 
         <Parameter 
             name="eu.clarin.cmdi.vlo.piwik.host" 
             description="defaults to 'https://stats.clarin.eu/'"
-            value="${VLO_DOCKER_PIWIK_HOST}"/>
+            value="{{VLO_DOCKER_PIWIK_HOST}}"/>
 
         <Parameter 
             name="eu.clarin.cmdi.vlo.piwik.domains" 
             description="defaults to '*.catalog.clarin.eu'"
-            value="${VLO_DOCKER_PIWIK_DOMAINS}"/>
+            value="{{VLO_DOCKER_PIWIK_DOMAINS}}"/>
 
 </Context>

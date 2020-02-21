@@ -48,6 +48,11 @@ main () {
 }
 
 wait_for_solr() {
+	if ! [ "${VLO_DOCKER_SOLR_URL}" ]; then
+		echo "FATAL: Solr URL not configured"
+		exit 1
+	fi
+	
 	HOST_PORT="$(echo "${VLO_DOCKER_SOLR_URL}" | sed -E 's_https?://([^/:]+:[0-9]+).*_\1_g')"
 	echo "Checking/waiting for Solr service at ${HOST_PORT} (extracted from ${VLO_DOCKER_SOLR_URL}). Timeout: ${SOLR_PORT_WAIT_TIMEOUT}s"
 	wait-for "${HOST_PORT}"  -t "${SOLR_PORT_WAIT_TIMEOUT}"
@@ -66,7 +71,10 @@ filter_file() {
 	TARGET_FILE=$1
 	shift
 	if [ -e "$TARGET_FILE" ]; then
-		/bin/bash "/opt/filter-config-file.sh"  "${TARGET_FILE}" $@
+		for PROP in $@; do
+			PROP_VALUE="$(eval echo \"\${${PROP}}\")"
+			replaceVarInFile "${PROP}" "${PROP_VALUE}" "${TARGET_FILE}"
+		done
 	else
 		echo "ERROR: file not found, cannot filter: $TARGET_FILE"
 		exit 1
