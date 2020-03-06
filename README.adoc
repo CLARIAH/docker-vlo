@@ -262,7 +262,9 @@ Parameters that are used to filter `VloConfig.xml`:
 
 Links to external services:
 
+[options="header",cols=",,,,"]
 |===
+| Name | Required | Type | Default value | Description
 
 | VLO_DOCKER_VCR_SUBMIT_ENDPOINT
 | Yes
@@ -364,6 +366,25 @@ https://www.piwik.org[Piwik] (access statistics gathering) parameters:
 
 Connection to link checker database for updating resource availability status:
 
-	VLO_DOCKER_LINK_CHECKER_MONGO_DB_NAME="" \
-	VLO_DOCKER_LINK_CHECKER_MONGO_DB_CONNECTION_STRING=""
+[options="header",cols=",,,,"]
+|===
+| Name | Required | Type | Default value | Description
+
+| VLO_DOCKER_LINK_CHECKER_DB_CONNECTION_STRING
+|
+|
+|
+|
+
+| VLO_DOCKER_LINK_CHECKER_DB_USER
+|
+|
+|
+|
+
+| VLO_DOCKER_LINK_CHECKER_DB_PASSWORD
+|
+|
+|
+|
 
