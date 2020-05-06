@@ -36,6 +36,7 @@ ENV	VLO_DOCKER_CONFIG_FILE="/opt/vlo/config/VloConfig.xml" \
 	VLO_DOCKER_IMPORTER_JAVA_OPTS="" \
 	VLO_DOCKER_TOMCAT_JAVA_OPTS="" \
 	VLO_DOCKER_VCR_MAXIMUM_ITEMS_COUNT="1000" \
+	VLO_DOCKER_WEB_APP_LOCALE="en-GB" \
 	VLO_DOCKER_CONCEPT_REGISTRY_URL="https://concepts.clarin.eu/ccr/api/find-concepts" \
 	VLO_DOCKER_VOCABULARY_REGISTRY_URL="http://clavas.clarin.eu/clavas/public/api/find-concepts" \
 	VLO_DOCKER_FEEDBACK_FORM_URL="http://www.clarin.eu/node/3759?url=" \
