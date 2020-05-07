@@ -60,11 +60,11 @@ wait_for_solr() {
 	SOLR_TEST_URL="${VLO_DOCKER_SOLR_URL}${SOLR_CHECK_PATH}"
 	echo "Checking/wating for Solr response at ${SOLR_TEST_URL} (user: ${VLO_DOCKER_SOLR_USER_READ_ONLY})"
 	while ! curl -lfs -u "${VLO_DOCKER_SOLR_USER_READ_ONLY}:${VLO_DOCKER_SOLR_PASSWORD_READ_ONLY}" "${SOLR_TEST_URL}" > /dev/null 2>&1; do
-		echo "REST not available (yet). Exit code: $?"
+		echo "Solr not available (yet). Exit code: $?"
 		sleep "${SOLR_CHECK_INTERVAL}"
 	done
 	
-	echo "Confirmed availability of REST service at ${SOLR_TEST_URL}"
+	echo "Confirmed availability of SOLR service at ${SOLR_TEST_URL}"
 }
 
 filter_file() {
