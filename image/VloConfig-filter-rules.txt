@@ -31,3 +31,4 @@ VLO_DOCKER_EXPOSURE_DB_PASSWORD .VloConfig.vloExposurePassword
 VLO_DOCKER_ENABLE_FCS_LINKS .VloConfig.enableFcsLinks
 VLO_DOCKER_AVAILABILITY_STATUS_UPDATE_BATCH_SIZE .VloConfig.availabilityStatusUpdaterBatchSize
 VLO_DOCKER_WEB_APP_LOCALE .VloConfig.webAppLocale
+VLO_DOCKER_DATASET_STRUCTURED_DATA_ENABLED .VloConfig.dataSetStructuredData.enabled
