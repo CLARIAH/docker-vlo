@@ -1,6 +1,6 @@
-image: docker/compose:1.25.0-rc1
+image: docker/compose:1.25.5
 services:
-  - docker:18.09.2-dind
+  - docker:18.09.9-dind
 
 variables:
     GIT_SUBMODULE_STRATEGY: recursive
@@ -16,7 +16,7 @@ stages:
 build:
   artifacts:
     untracked: true
-  script: timeout -t 1440 sh -x ./build.sh --build
+  script: timeout 1440 sh -x ./build.sh --build
   stage: build
   tags:
     - docker
@@ -26,7 +26,7 @@ test:
     untracked: true
   dependencies:
     - build
-  script: timeout -t 1440 sh -x ./build.sh --test
+  script: timeout 1440 sh -x ./build.sh --test
   stage: test
   tags:
     - docker
@@ -37,7 +37,7 @@ release:
   only:
     - tags
     - triggers
-  script: timeout -t 1440 sh -x ./build.sh --release
+  script: timeout 1440 sh -x ./build.sh --release
   stage: release
   tags:
     - docker
