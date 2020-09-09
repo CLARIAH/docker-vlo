@@ -1,4 +1,4 @@
-image: docker/compose:1.25.5
+image: docker/compose:1.27.0
 services:
   - docker:18.09.9-dind
 
