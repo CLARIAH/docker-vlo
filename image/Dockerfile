@@ -95,6 +95,7 @@ COPY VloConfig-filter-rules.txt /init/VloConfig-filter-rules.txt
 
 COPY fluentd/vlo.conf /etc/fluentd/conf.d/vlo.conf
 
+COPY check-solr-connection.bash /usr/bin/check-solr-connection
 
 RUN chmod u+x /opt/importer.sh \
  && chmod u+x /opt/filter-properties-to-xml.sh \
@@ -106,3 +107,7 @@ RUN adduser -D -u $SOLR_UID $SOLR_USER \
  && chown -R -L $SOLR_USER ${VLO_BASE}/solr/vlo-solr-home
 
 VOLUME ["/opt/sitemap", "/opt/statsd", "/srv/VLO-mapping", "/srv/vlo-solr-home", "${VLO_BASE}/solr/vlo-solr-home"]
+
+HEALTHCHECK --interval=30s --timeout=30s CMD (supervisor-healthcheck \
+	&& tomcat-healthcheck \
+	&& check-solr-connection) || exit 1
