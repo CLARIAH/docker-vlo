@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 source "${DATA_ENV_FILE:-copy_data.env.sh}"
 
+VLO_DISTR_DIR="webapp/vlo"
+VLO_DISTR_FILE="vlo-distr.$(date +%Y%m%d%H%M%S).tar.gz"
+
 init_data () { 
 	export INIT_DATA_BUILD_DIR="${PWD}"
-	if [ -e "${VLO_DISTR_FILE}" ] || [ -e "${VLO_DISTR_DIR}" ]; then
+	if [ -e "${VLO_DISTR_DIR}" ]; then
 		cleanup_data
 	fi
 
@@ -23,15 +26,13 @@ init_data () {
 			sh unpack-wars.sh > /dev/null
 		)
    		mv  "${NAME}" 'vlo'
+   		rm "${VLO_DISTR_FILE}"
 	)
 }
 
 cleanup_data () {
-	echo "Cleaning up data"
-    if [ -f "${INIT_DATA_BUILD_DIR}/${VLO_DISTR_FILE}" ]; then
-        rm "${INIT_DATA_BUILD_DIR}/${VLO_DISTR_FILE}"
-    fi
     if [ -d "${INIT_DATA_BUILD_DIR}/${VLO_DISTR_DIR}" ]; then
+		echo "Cleaning up data"
 	    rm -r "${INIT_DATA_BUILD_DIR}/${VLO_DISTR_DIR}"
     fi
 }
