@@ -1,4 +1,4 @@
-image: docker/compose:1.27.0
+image: docker/compose:1.27.4
 services:
   - docker:18.09.9-dind
 
@@ -6,12 +6,20 @@ variables:
     GIT_SUBMODULE_STRATEGY: recursive
 
 before_script:
-  - apk add --no-cache openssl curl
+  - (! command -v apk) || apk add --no-cache openssl curl
 
 stages:
+  - lint
   - build
   - test
   - release
+
+lint_dockerfile:
+  image: hadolint/hadolint:latest-debian
+  stage: lint
+  script:
+    - hadolint image/Dockerfile
+
 
 build:
   artifacts:
