@@ -13,15 +13,17 @@ init_data () {
 #     fi
 
     echo -n "Fetching remote data from ${REMOTE_RELEASE_URL}... "
-    cd webapp
-    curl -s -S -J -L -O "${REMOTE_RELEASE_URL}"
-    tar -zxf *.tar.gz
-    cd ${NAME}/war
-    sh unpack-wars.sh > /dev/null
-    cd ../..
-    mv  ${NAME} vlo
-    cd ..
-    echo $(pwd)
+    DOWNLOAD_FILE="vlo.$(date +%Y%m%d%H%M%S).tar.gz"
+    (
+		cd webapp
+		wget -q -O "${VLO_DISTR_FILE}" "${REMOTE_RELEASE_URL}"
+		tar -zxf "${DOWNLOAD_FILE}"
+		(
+			cd "${NAME}/war"
+			sh unpack-wars.sh > /dev/null
+		)
+   		mv  "${NAME}" 'vlo'
+	)
 }
 
 cleanup_data () {
