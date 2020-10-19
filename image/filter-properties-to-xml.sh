@@ -28,14 +28,15 @@ fi
 main() {
 	cp "${TARGET_XML}" "${TARGET_XML}.orig"
 
-	while read RULE; do
+	while read -r RULE; do
 		if [ "${RULE}" ]; then
 			read -ra RULEA <<< "$RULE"
 			PROP="${RULEA[0]}"
 			XQ_PATH="${RULEA[1]}"
 
 			if [ "${PROP}" ] && [ "${XQ_PATH}" ]; then
-				PROP_VALUE="$(eval echo \"\${${PROP}}\")"
+				# shellcheck disable=SC2086
+				PROP_VALUE="$(eval echo \"\$\{${PROP}\}\")"
 				
 				if [ "${PROP_VALUE}" ]; then
 					echo "Setting value for ${PROP} in ${TARGET_XML}:${XQ_PATH}"
@@ -66,4 +67,4 @@ log_debug() {
 	fi
 }
 
-main $@
+main "$@"

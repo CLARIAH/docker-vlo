@@ -15,7 +15,7 @@ main () {
 
 	filter_xml_file "${VLO_DOCKER_CONFIG_FILE}" "${VLO_DOCKER_CONFIG_MAPPING_RULES_FILE}"
 
-	filter_file ${CATALINA_BASE}/conf/Catalina/localhost/ROOT.xml \
+	filter_file "${CATALINA_BASE}/conf/Catalina/localhost/ROOT.xml" \
 		VLO_DOCKER_CONFIG_FILE \
 		VLO_DOCKER_WICKET_CONFIGURATION \
 		VLO_DOCKER_WICKET_BOTTOM_SNIPPET_URL \
@@ -25,15 +25,15 @@ main () {
 		VLO_DOCKER_PIWIK_DOMAINS
 
 	# Tomcat env
-	filter_file ${CATALINA_BASE}/bin/setenv.sh \
+	filter_file "${CATALINA_BASE}/bin/setenv.sh" \
 		VLO_DOCKER_TOMCAT_JAVA_OPTS
 	
 	# Importer
-	filter_file /opt/importer.sh \
+	filter_file "/opt/importer.sh" \
 		VLO_DOCKER_IMPORTER_JAVA_OPTS
 
 	# Update mapping definitions
-	if [ ! -z "${VLO_MAPPING_DEFINITIONS_DIST_URL}" ]; then
+	if [ -n "${VLO_MAPPING_DEFINITIONS_DIST_URL}" ]; then
 		cd "$VLO_MAPPING_DEFINITIONS_DIR" && \
 		curl -L "${VLO_MAPPING_DEFINITIONS_DIST_URL}" | tar zxvf - --strip-components=1
 	else
@@ -71,8 +71,9 @@ filter_file() {
 	TARGET_FILE=$1
 	shift
 	if [ -e "$TARGET_FILE" ]; then
-		for PROP in $@; do
-			PROP_VALUE="$(eval echo \"\${${PROP}}\")"
+		for PROP in "$@"; do
+			# shellcheck disable=SC2086
+			PROP_VALUE="$(eval echo \"\$\{${PROP}\}\")"
 			replaceVarInFile "${PROP}" "${PROP_VALUE}" "${TARGET_FILE}"
 		done
 	else
@@ -93,4 +94,4 @@ filter_xml_file() {
 	fi
 }
 
-main $@
+main "$@"

@@ -11,7 +11,7 @@ SITEMAP_CONFIG_FILE="/opt/vlo/bin/sitemap-generator/config.properties"
 SITEMAP_CONFIG_BACKUP="${SITEMAP_CONFIG_FILE}.orig"
 
 #Update mapping definitions
-if [ ! -z "${VLO_MAPPING_DEFINITIONS_DIST_URL}" ]; then
+if [ -n "${VLO_MAPPING_DEFINITIONS_DIST_URL}" ]; then
 	cd "${VLO_MAPPING_DEFINITIONS_DIR}" && \
 	curl -L "${VLO_MAPPING_DEFINITIONS_DIST_URL}" | tar zxvf - --strip-components=1
 else
@@ -22,10 +22,10 @@ fi
 export IMPORTER_JAVA_OPTS="{{VLO_DOCKER_IMPORTER_JAVA_OPTS}}"
 export IMPORTER_LOG_LEVEL="${VLO_DOCKER_IMPORTER_LOG_LEVEL}"
 cd /opt/vlo/bin/ && \
-nice sh vlo_solr_importer.sh -c ${VLO_DOCKER_CONFIG_FILE} > "${IMPORTER_SCRIPT_LOG_FILE}" 2>&1
+nice sh vlo_solr_importer.sh -c "${VLO_DOCKER_CONFIG_FILE}" > "${IMPORTER_SCRIPT_LOG_FILE}" 2>&1
 
 #Solr index statistics
-if [ ! -z "${VLO_DOCKER_STATSD_HOST}" ] && [ ! -z "${VLO_DOCKER_STATSD_PORT}" ] && [ ! -z "${STATSD_PREFIX}" ]; then
+if [ -n "${VLO_DOCKER_STATSD_HOST}" ] && [ -n "${VLO_DOCKER_STATSD_PORT}" ] && [ -n "${STATSD_PREFIX}" ]; then
 	# Filter properties in statics configuration
 	cp "${STATS_CONFIG_FILE}" "${STATS_CONFIG_FILTERED}"
 	replaceVarInFile "VLO_DOCKER_STATSD_HOST" "${VLO_DOCKER_STATSD_HOST}" "${STATS_CONFIG_FILTERED}"
@@ -40,7 +40,7 @@ else
 fi
 
 #Sitemap
-if [ ! -z "${VLO_DOCKER_PUBLIC_HOME_URL}" ] && [ ! -z "${VLO_DOCKER_SOLR_URL}" ]; then
+if [ -n "${VLO_DOCKER_PUBLIC_HOME_URL}" ] && [ -n "${VLO_DOCKER_SOLR_URL}" ]; then
 	# Filter properties in sitemap generator configuraiton
 	cp "${SITEMAP_CONFIG_FILE}" "${SITEMAP_CONFIG_BACKUP}"
 	replaceVarInFile "VLO_DOCKER_PUBLIC_HOME_URL" "${VLO_DOCKER_PUBLIC_HOME_URL}" "${SITEMAP_CONFIG_FILE}"

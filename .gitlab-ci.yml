@@ -16,7 +16,12 @@ lint_dockerfile:
   stage: lint
   script:
     - hadolint image/Dockerfile
-
+    
+shell check:
+  image: koalaman/shellcheck-alpine:stable
+  stage: lint
+  script:
+    - find image \( -name "*.sh" -o -name "*.bash" \) -print0 | xargs --no-run-if-empty -0 shellcheck
 
 build:
   artifacts:
