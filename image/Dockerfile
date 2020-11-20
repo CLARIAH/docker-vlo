@@ -1,5 +1,8 @@
 FROM registry.gitlab.com/clarin-eric/docker-alpine-supervisor-java-tomcat-base:1.4.8
 
+ARG JQ_VERSION=1.6-r0
+ARG YQ_VERSION=2.11.1
+
 # General options
 ENV	VLO_MAPPING_DEFINITIONS_DIST_URL="https://github.com/clarin-eric/VLO-mapping/archive/master.tar.gz" \
 	VLO_MAPPING_DEFINITIONS_DIR="/srv/VLO-mapping" \
@@ -77,8 +80,8 @@ ENV SOLR_USER="solr" \
 ENV VLO_BASE="/opt/vlo"
 
 RUN	apk add --no-cache \
- 		jq=1.6-r0 \
- 	&& pip install yq==2.10.0
+ 		"jq=${JQ_VERSION}" \
+ 	&& pip --no-cache-dir install "yq==${YQ_VERSION}"
 
 RUN rm -r "${CATALINA_BASE}/webapps/ROOT"
 
