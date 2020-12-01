@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck source=copy_data.env.sh
 source "${DATA_ENV_FILE:-copy_data.env.sh}"
 
 VLO_DISTR_DIR="webapp/vlo"
@@ -16,9 +17,10 @@ init_data () {
 #     fi
 
 	(
-		cd webapp
+		cd webapp || exit 1
 		
 		if [[ "${REMOTE_RELEASE_URL}" =~ ^file.* ]]; then
+			# shellcheck disable=SC2001
 			SRC_FILE="$(echo ${REMOTE_RELEASE_URL} | sed 's/^file://')"
 			echo "Copying data from ${SRC_FILE}"
 			if ! [ -e "${SRC_FILE}" ]; then
@@ -33,10 +35,10 @@ init_data () {
 		
 		tar -zxf "${VLO_DISTR_FILE}"
 		(
-			cd "${NAME}/war"
+			cd "${NAME}/war" || exit 1
 			sh unpack-wars.sh > /dev/null
 		)
-		mv  "${NAME}" 'vlo'
+		mv  "${NAME}" 'vlo' || exit 1
 		rm "${VLO_DISTR_FILE}"
 	)
 }
@@ -44,6 +46,6 @@ init_data () {
 cleanup_data () {
     if [ -d "${INIT_DATA_BUILD_DIR}/${VLO_DISTR_DIR}" ]; then
 		echo "Cleaning up data"
-	    rm -r "${INIT_DATA_BUILD_DIR}/${VLO_DISTR_DIR}"
+	    rm -r "${INIT_DATA_BUILD_DIR:?}/${VLO_DISTR_DIR:?}"
     fi
 }
