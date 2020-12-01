@@ -15,17 +15,29 @@ init_data () {
 #         LOCAL=1
 #     fi
 
-    echo -n "Fetching remote data from ${REMOTE_RELEASE_URL}... "
-    (
+	(
 		cd webapp
-		wget -q -O "${VLO_DISTR_FILE}" "${REMOTE_RELEASE_URL}"
+		
+		if [[ "${REMOTE_RELEASE_URL}" =~ ^file.* ]]; then
+			SRC_FILE="$(echo ${REMOTE_RELEASE_URL} | sed 's/^file://')"
+			echo "Copying data from ${SRC_FILE}"
+			if ! [ -e "${SRC_FILE}" ]; then
+				echo "FATAL: source file does not exist"
+				exit 1
+			fi
+			cp "${SRC_FILE}" "${VLO_DISTR_FILE}"
+		else		
+		    echo -n "Fetching remote data from ${REMOTE_RELEASE_URL}... "
+			wget -q -O "${VLO_DISTR_FILE}" "${REMOTE_RELEASE_URL}"
+		fi
+		
 		tar -zxf "${VLO_DISTR_FILE}"
 		(
 			cd "${NAME}/war"
 			sh unpack-wars.sh > /dev/null
 		)
-   		mv  "${NAME}" 'vlo'
-   		rm "${VLO_DISTR_FILE}"
+		mv  "${NAME}" 'vlo'
+		rm "${VLO_DISTR_FILE}"
 	)
 }
 
