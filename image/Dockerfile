@@ -47,6 +47,7 @@ ENV	VLO_DOCKER_CONFIG_FILE="/opt/vlo/config/VloConfig.xml" \
 	VLO_DOCKER_LRS_BASE_URL="https://switchboard.clarin.eu/" \
 	VLO_DOCKER_LRS_POPUP_SCRIPT_URL="https://switchboard.clarin.eu/popup/switchboardpopup.js" \
 	VLO_DOCKER_LRS_POPUP_STYLE_URL="https://switchboard.clarin.eu/popup/switchboardpopup.js" \
+	VLO_DOCKER_LRS_POPUP_ENABLED="true" \
 	VLO_DOCKER_VCR_SUBMIT_ENDPOINT="https://collections.clarin.eu/submit/extensional" \
 	VLO_DOCKER_CENTRE_REGISTRY_CENTRES_LIST_JSON_URL="https://centres.clarin.eu/api/model/Centre" \
 	VLO_DOCKER_CENTRE_REGISTRY_OAI_PMH_ENDPOINTS_LIST_JSON_URL="https://centres.clarin.eu/api/model/OAIPMHEndpoint" \
