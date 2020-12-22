@@ -39,6 +39,11 @@ else
 		| tee -a "${IMPORTER_SCRIPT_LOG_FILE}"
 fi
 
+# VLO change monitor
+# TODO: check if rules file is present
+(cd /opt/vlo/bin/monitor \
+	&& nice sh start.sh 2>&1)
+
 #Sitemap
 if [ -n "${VLO_DOCKER_PUBLIC_HOME_URL}" ] && [ -n "${VLO_DOCKER_SOLR_URL}" ]; then
 	# Filter properties in sitemap generator configuraiton

@@ -89,6 +89,7 @@ RUN rm -r "${CATALINA_BASE}/webapps/ROOT"
 COPY webapp/vlo/ ${VLO_BASE}
 COPY webapp/sitemap-config.properties ${VLO_BASE}/bin/sitemap-generator/config.properties
 COPY webapp/statistics-config.properties ${VLO_BASE}/bin/statistics/config.properties
+COPY webapp/vlo-monitor.properties ${VLO_BASE}/bin/monitor/vlo-monitor.properties
 COPY webapp/vlo-context.xml ${CATALINA_BASE}/conf/Catalina/localhost/ROOT.xml
 COPY tomcat/setenv.sh ${CATALINA_BASE}/bin/setenv.sh
 COPY importer.sh /opt/importer.sh
@@ -110,4 +111,4 @@ RUN chmod u+x /opt/importer.sh \
 RUN adduser -D -u $SOLR_UID $SOLR_USER \
  && chown -R -L $SOLR_USER ${VLO_BASE}/solr/vlo-solr-home
 
-VOLUME ["/opt/sitemap", "/opt/statsd", "/srv/VLO-mapping", "/srv/vlo-solr-home", "${VLO_BASE}/solr/vlo-solr-home"]
+VOLUME ["/srv/VLO-mapping", "/srv/vlo-solr-home", "${VLO_BASE}/solr/vlo-solr-home", "/opt/sitemap", "/opt/vlo-monitoring", "/opt/statsd"]
