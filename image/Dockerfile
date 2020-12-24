@@ -92,9 +92,9 @@ RUN	apk add --no-cache \
 RUN rm -r "${CATALINA_BASE}/webapps/ROOT"
 
 COPY webapp/vlo/ ${VLO_BASE}
-COPY webapp/sitemap-config.properties ${VLO_BASE}/bin/sitemap-generator/config.properties
-COPY webapp/statistics-config.properties ${VLO_BASE}/bin/statistics/config.properties
-COPY monitor/vlo-monitor.properties.tmpl ${VLO_BASE}/bin/monitor/vlo-monitor.properties.tmpl
+COPY config/sitemap-config.properties.tmpl ${VLO_BASE}/bin/sitemap-generator/config.properties.tmpl
+COPY config/statistics-config.properties.tmpl ${VLO_BASE}/bin/statistics/config.properties.tmpl
+COPY config/vlo-monitor.properties.tmpl ${VLO_BASE}/bin/monitor/vlo-monitor.properties.tmpl
 COPY webapp/vlo-context.xml ${CATALINA_BASE}/conf/Catalina/localhost/ROOT.xml
 COPY tomcat/setenv.sh ${CATALINA_BASE}/bin/setenv.sh
 COPY importer.sh /opt/importer.sh
