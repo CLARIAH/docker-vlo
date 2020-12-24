@@ -46,7 +46,7 @@ fi
 #Sitemap
 if [ -n "${VLO_DOCKER_PUBLIC_HOME_URL}" ] && [ -n "${VLO_DOCKER_SOLR_URL}" ]; then
 	# Filter properties in sitemap generator configuraiton
-	(renderizer "${SITEMAP_CONFIG_FILE}.tmpl" > "${SITEMAP_CONFIG_FILE}"
+	(renderizer "${SITEMAP_CONFIG_FILE}.tmpl" > "${SITEMAP_CONFIG_FILE}" \
 		&& cd /opt/vlo/bin/sitemap-generator/ \
 		&& nice sh start.sh >> "${IMPORTER_SCRIPT_LOG_FILE}" 2>&1)
 else
