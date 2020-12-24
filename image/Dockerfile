@@ -74,6 +74,11 @@ ENV VLO_DOCKER_PIWIK_ENABLE_TRACKER="false" \
 	VLO_DOCKER_PIWIK_HOST="https://stats.clarin.eu/" \
 	VLO_DOCKER_PIWIK_DOMAINS="*.vlo.clarin.eu"
 	
+# VLO monitor settings
+ENV VLO_DOCKER_MONITOR_RULES_FILE="/opt/vlo/config/vlo-monitor-rules.properties" \
+	VLO_DOCKER_MONITOR_DB_PATH="/opt/vlo-monitoring/vlo-monitoring" \
+	VLO_DOCKER_MONITOR_PRUNE_AFTER_DAYS="100"
+	
 # This should match the Solr image
 ENV SOLR_USER="solr" \
     SOLR_UID="8983"
@@ -89,7 +94,7 @@ RUN rm -r "${CATALINA_BASE}/webapps/ROOT"
 COPY webapp/vlo/ ${VLO_BASE}
 COPY webapp/sitemap-config.properties ${VLO_BASE}/bin/sitemap-generator/config.properties
 COPY webapp/statistics-config.properties ${VLO_BASE}/bin/statistics/config.properties
-COPY monitor/vlo-monitor.properties ${VLO_BASE}/bin/monitor/vlo-monitor.properties
+COPY monitor/vlo-monitor.properties.tmpl ${VLO_BASE}/bin/monitor/vlo-monitor.properties.tmpl
 COPY webapp/vlo-context.xml ${CATALINA_BASE}/conf/Catalina/localhost/ROOT.xml
 COPY tomcat/setenv.sh ${CATALINA_BASE}/bin/setenv.sh
 COPY importer.sh /opt/importer.sh

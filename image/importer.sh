@@ -10,6 +10,8 @@ STATS_CONFIG_FILTERED="${STATS_CONFIG_BASE}.filtered.properties"
 SITEMAP_CONFIG_FILE="/opt/vlo/bin/sitemap-generator/config.properties"
 SITEMAP_CONFIG_BACKUP="${SITEMAP_CONFIG_FILE}.orig"
 
+VLO_MONITOR_PROPERTIES_FILE="/opt/vlo/bin/monitor/vlo-monitor.properties"
+
 #Update mapping definitions
 if [ -n "${VLO_MAPPING_DEFINITIONS_DIST_URL}" ]; then
 	cd "${VLO_MAPPING_DEFINITIONS_DIR}" && \
@@ -40,9 +42,15 @@ else
 fi
 
 # VLO change monitor
-# TODO: check if rules file is present
-(cd /opt/vlo/bin/monitor \
-	&& nice sh start.sh 2>&1)
+if [ -n "${VLO_DOCKER_MONITOR_RULES_FILE}" ]; then
+	# Filter properties in monitor configuration
+	renderizer "${VLO_MONITOR_PROPERTIES_FILE}.tmpl" > "${VLO_MONITOR_PROPERTIES_FILE}"
+	(cd /opt/vlo/bin/monitor \
+		&& nice sh start.sh 2>&1)
+else
+	echo "Warning: not running VLO monitor because required environment variable 'VLO_DOCKER_MONITOR_RULES_FILE' has not beeen set" \
+		| tee -a "${IMPORTER_SCRIPT_LOG_FILE}"
+fi
 
 #Sitemap
 if [ -n "${VLO_DOCKER_PUBLIC_HOME_URL}" ] && [ -n "${VLO_DOCKER_SOLR_URL}" ]; then
