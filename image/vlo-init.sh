@@ -9,28 +9,16 @@ VLO_DOCKER_CONFIG_MAPPING_RULES_FILE="/init/VloConfig-filter-rules.txt"
 
 main () {
 	# Filter VLO configuration
-	filter_file "${VLO_DOCKER_CONFIG_FILE}" \
-		VLO_DOCKER_DATAROOTS_FILE \
-		VLO_DOCKER_MAPPING_BASE_URI
-
+	filter_file "${VLO_DOCKER_CONFIG_FILE}"
 	filter_xml_file "${VLO_DOCKER_CONFIG_FILE}" "${VLO_DOCKER_CONFIG_MAPPING_RULES_FILE}"
 
-	filter_file "${CATALINA_BASE}/conf/Catalina/localhost/ROOT.xml" \
-		VLO_DOCKER_CONFIG_FILE \
-		VLO_DOCKER_WICKET_CONFIGURATION \
-		VLO_DOCKER_WICKET_BOTTOM_SNIPPET_URL \
-		VLO_DOCKER_PIWIK_ENABLE_TRACKER \
-		VLO_DOCKER_PIWIK_SITE_ID \
-		VLO_DOCKER_PIWIK_HOST \
-		VLO_DOCKER_PIWIK_DOMAINS
+	filter_file "${CATALINA_BASE}/conf/Catalina/localhost/ROOT.xml"
 
 	# Tomcat env
-	filter_file "${CATALINA_BASE}/bin/setenv.sh" \
-		VLO_DOCKER_TOMCAT_JAVA_OPTS
+	filter_file "${CATALINA_BASE}/bin/setenv.sh"
 	
 	# Importer
-	filter_file "/opt/importer.sh" \
-		VLO_DOCKER_IMPORTER_JAVA_OPTS
+	filter_file "/opt/importer.sh"
 
 	# Update mapping definitions
 	if [ -n "${VLO_MAPPING_DEFINITIONS_DIST_URL}" ]; then
@@ -68,16 +56,16 @@ wait_for_solr() {
 }
 
 filter_file() {
-	TARGET_FILE=$1
-	shift
-	if [ -e "$TARGET_FILE" ]; then
-		for PROP in "$@"; do
-			# shellcheck disable=SC2086
-			PROP_VALUE="$(eval echo \"\$\{${PROP}\}\")"
-			replaceVarInFile "${PROP}" "${PROP_VALUE}" "${TARGET_FILE}"
-		done
+	TARGET_FILE="$1"
+	if [ -e "${TARGET_FILE}" ]; then
+		TEMP_COPY="$(mktemp "${TARGET_FILE}.XXXXX")"
+		if (cp "${TARGET_FILE}" "${TEMP_COPY}"  && renderizer "${TEMP_COPY}" > "${TARGET_FILE}" 2>&1); then
+			rm "${TEMP_COPY}"
+		else
+			echo "ERROR: could not filter ${TARGET_FILE}" && exit 1
+		fi
 	else
-		echo "ERROR: file not found, cannot filter: $TARGET_FILE"
+		echo "ERROR: file not found, cannot filter: ${TEMPLATE_FILE} (target: ${TARGET_FILE})"
 		exit 1
 	fi
 }

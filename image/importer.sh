@@ -16,7 +16,7 @@ else
 fi
 
 #Run importer
-export IMPORTER_JAVA_OPTS="{{VLO_DOCKER_IMPORTER_JAVA_OPTS}}"
+export IMPORTER_JAVA_OPTS="{{.env.VLO_DOCKER_IMPORTER_JAVA_OPTS}}"
 export IMPORTER_LOG_LEVEL="${VLO_DOCKER_IMPORTER_LOG_LEVEL}"
 cd /opt/vlo/bin/ && \
 nice sh vlo_solr_importer.sh -c "${VLO_DOCKER_CONFIG_FILE}" > "${IMPORTER_SCRIPT_LOG_FILE}" 2>&1
