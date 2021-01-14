@@ -1,6 +1,6 @@
-FROM registry.gitlab.com/clarin-eric/docker-alpine-supervisor-java-tomcat-base:1.4.10
+FROM registry.gitlab.com/clarin-eric/docker-alpine-supervisor-java-tomcat-base:1.4.11-rc1
 
-ARG JQ_VERSION=1.6-r0
+ARG JQ_VERSION=1.6
 ARG YQ_VERSION=2.11.1
 
 # General options
@@ -86,7 +86,7 @@ ENV SOLR_USER="solr" \
 ENV VLO_BASE="/opt/vlo"
 
 RUN	apk add --no-cache \
- 		"jq=${JQ_VERSION}" \
+ 		"jq=~${JQ_VERSION}" \
  	&& pip --no-cache-dir install "yq==${YQ_VERSION}"
 
 RUN rm -r "${CATALINA_BASE}/webapps/ROOT"
