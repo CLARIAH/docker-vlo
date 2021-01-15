@@ -4,6 +4,7 @@ logging.level.root=warn
 logging.level.eu.clarin.cmdi.vlo=info
 logging.file.name=/opt/vlo/log/vlo-monitoring.log
 logging.file.max-size=10MB
+logging.file.max-history=5
 
 vlo.monitor.config.url=file:/opt/vlo/config/VloConfig.xml
 vlo.monitor.pruneAfterDays={{.env.VLO_DOCKER_MONITOR_PRUNE_AFTER_DAYS}}
