@@ -28,7 +28,6 @@ ENV	VLO_DOCKER_CONFIG_FILE="/opt/vlo/config/VloConfig.xml" \
 	VLO_DOCKER_DELETE_ALL_FIRST="false" \
 	VLO_DOCKER_MAX_DAYS_IN_SOLR="7" \
 	VLO_DOCKER_DATAROOTS_FILE="dataroots-production.xml" \
-	VLO_MAPPING_DEFINITIONS_DIST_URL="https://github.com/clarin-eric/VLO-mapping/archive/master.tar.gz" \
 	VLO_MAPPING_DEFINITIONS_DIR="/srv/VLO-mapping" \
 	VLO_DOCKER_WICKET_CONFIGURATION="deployment" \
 	VLO_DOCKER_WICKET_BOTTOM_SNIPPET_URL="" \

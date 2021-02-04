@@ -40,6 +40,7 @@ services:
       - VLO_DOCKER_SOLR_PASSWORD_READ_ONLY=read
       - VLO_DOCKER_SOLR_USER_READ_WRITE=user_rw
       - VLO_DOCKER_SOLR_PASSWORD_READ_WRITE=rw
+      - VLO_MAPPING_DEFINITIONS_DIST_URL=https://github.com/clarin-eric/VLO-mapping/archive/vlo-issue290.tar.gz
     depends_on:
       - vlo_solr
     volumes:
