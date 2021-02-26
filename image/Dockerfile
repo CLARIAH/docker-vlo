@@ -1,6 +1,6 @@
-FROM registry.gitlab.com/clarin-eric/docker-alpine-supervisor-java-tomcat-base:1.4.9
+FROM registry.gitlab.com/clarin-eric/docker-alpine-supervisor-java-tomcat-base:1.4.10
 
-ARG JQ_VERSION=1.6-r0
+ARG JQ_VERSION=1.6
 ARG YQ_VERSION=2.11.1
 
 # General options
@@ -80,7 +80,7 @@ ENV SOLR_USER="solr" \
 ENV VLO_BASE="/opt/vlo"
 
 RUN	apk add --no-cache \
- 		"jq=${JQ_VERSION}" \
+ 		"jq=~${JQ_VERSION}" \
  	&& pip --no-cache-dir install "yq==${YQ_VERSION}"
 
 RUN rm -r "${CATALINA_BASE}/webapps/ROOT"
@@ -109,4 +109,4 @@ RUN chmod u+x /opt/importer.sh \
 RUN adduser -D -u $SOLR_UID $SOLR_USER \
  && chown -R -L $SOLR_USER ${VLO_BASE}/solr/vlo-solr-home
 
-VOLUME ["/opt/sitemap", "/opt/statsd", "/srv/VLO-mapping", "/srv/vlo-solr-home", "${VLO_BASE}/solr/vlo-solr-home"]
+VOLUME ["/srv/VLO-mapping", "/srv/vlo-solr-home", "${VLO_BASE}/solr/vlo-solr-home", "/opt/sitemap", "/opt/vlo-monitoring", "/opt/statsd"]
