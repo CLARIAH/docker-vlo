@@ -85,6 +85,7 @@ RUN	apk add --no-cache \
 
 RUN rm -r "${CATALINA_BASE}/webapps/ROOT"
 
+WORKDIR /
 COPY webapp/vlo/ ${VLO_BASE}
 COPY webapp/sitemap-config.properties ${VLO_BASE}/bin/sitemap-generator/config.properties
 COPY webapp/statistics-config.properties ${VLO_BASE}/bin/statistics/config.properties
@@ -110,3 +111,5 @@ RUN adduser -D -u $SOLR_UID $SOLR_USER \
  && chown -R -L $SOLR_USER ${VLO_BASE}/solr/vlo-solr-home
 
 VOLUME ["/srv/VLO-mapping", "/srv/vlo-solr-home", "${VLO_BASE}/solr/vlo-solr-home", "/opt/sitemap", "/opt/vlo-monitoring", "/opt/statsd"]
+
+WORKDIR /opt/vlo
