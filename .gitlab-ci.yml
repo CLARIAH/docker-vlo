@@ -12,7 +12,7 @@ stages:
   - release
 
 lint_dockerfile:
-  image: hadolint/hadolint:latest-debian
+  image: hadolint/hadolint:v1.23.0-1-ga556eaf-debian
   stage: lint
   script:
     - hadolint image/Dockerfile

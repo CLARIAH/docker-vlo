@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/clarin-eric/docker-alpine-supervisor-java-tomcat-base:1.4.11-rc3
+FROM registry.gitlab.com/clarin-eric/docker-alpine-supervisor-java-tomcat-base:1.4.11
 
 ARG JQ_VERSION=1.6
 ARG YQ_VERSION=2.11.1
@@ -90,6 +90,7 @@ RUN	apk add --no-cache \
 
 RUN rm -r "${CATALINA_BASE}/webapps/ROOT"
 
+WORKDIR /
 COPY webapp/vlo/ ${VLO_BASE}
 COPY config/sitemap-config.properties.tmpl ${VLO_BASE}/bin/sitemap-generator/config.properties.tmpl
 COPY config/statistics-config.properties.tmpl ${VLO_BASE}/bin/statistics/config.properties.tmpl
@@ -116,3 +117,5 @@ RUN adduser -D -u $SOLR_UID $SOLR_USER \
  && chown -R -L $SOLR_USER ${VLO_BASE}/solr/vlo-solr-home
 
 VOLUME ["/srv/VLO-mapping", "/srv/vlo-solr-home", "${VLO_BASE}/solr/vlo-solr-home", "/opt/sitemap", "/opt/vlo-monitoring", "/opt/statsd"]
+
+WORKDIR /opt/vlo
