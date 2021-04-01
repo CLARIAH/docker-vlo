@@ -16,7 +16,7 @@ services:
       - SOLR_DATA_HOME
     depends_on:
       - vlo_solr_init # to ensure Solr home directory content
-    entrypoint: ["bash", "-c", "[ -f ${SOLR_HOME_PROVISIONING_PATH}/solr.xml ]
+    entrypoint: ["tini", "--", "bash", "-c", "[ -f ${SOLR_HOME_PROVISIONING_PATH}/solr.xml ]
                         && /usr/bin/entrypoint.sh --test"]
     volumes:
       - test:/test
