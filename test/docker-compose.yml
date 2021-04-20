@@ -11,7 +11,7 @@ services:
     restart: "no"
   # Solr server
   vlo_solr:
-    image: registry.gitlab.com/clarin-eric/docker-solr:solr8.6-1.0.0-beta1
+    image: registry.gitlab.com/clarin-eric/docker-solr:solr8.6-1.0.1
     environment:
       - SOLR_DATA_HOME
     depends_on:
@@ -40,7 +40,7 @@ services:
       - VLO_DOCKER_SOLR_PASSWORD_READ_ONLY=read
       - VLO_DOCKER_SOLR_USER_READ_WRITE=user_rw
       - VLO_DOCKER_SOLR_PASSWORD_READ_WRITE=rw
-      - VLO_MAPPING_DEFINITIONS_DIST_URL=https://github.com/clarin-eric/VLO-mapping/archive/vlo-issue290.tar.gz
+      - VLO_MAPPING_DEFINITIONS_DIST_URL=https://github.com/clarin-eric/VLO-mapping/archive/1.6.1.tar.gz
     depends_on:
       - vlo_solr
     volumes:
