@@ -11,7 +11,7 @@ services:
     restart: "no"
   # Solr server
   vlo_solr:
-    image: registry.gitlab.com/clarin-eric/docker-solr:solr8.6-2.0.0-rc1
+    image: registry.gitlab.com/clarin-eric/docker-solr:solr8.6-2.0.0-rc2
     environment:
       - SOLR_DATA_HOME
     depends_on:
@@ -49,7 +49,7 @@ services:
       - "vlo-server-network"
 
   vlo-test1:
-    image: "registry.gitlab.com/clarin-eric/docker-tester:1.2.0"
+    image: "registry.gitlab.com/clarin-eric/docker-tester:1.3.0"
     depends_on:
         - vlo-server
     entrypoint: /bin/bash -c "/bin/bash -c \"$${@}\""
