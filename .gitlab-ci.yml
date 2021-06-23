@@ -1,6 +1,6 @@
 image: docker/compose:1.29.2
 services:
-  - docker:18.09.9-dind
+  - docker:20.10.7-dind
 
 variables:
     GIT_SUBMODULE_STRATEGY: recursive
