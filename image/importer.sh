@@ -1,5 +1,5 @@
 #!/bin/sh
-IMPORTER_SCRIPT_LOG_FILE="/var/log/vlo-import-script.log"
+IMPORTER_SCRIPT_LOG_FILE="/var/log/vlo/import-script.log"
 
 touch $IMPORTER_SCRIPT_LOG_FILE
 
