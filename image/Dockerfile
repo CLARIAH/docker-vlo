@@ -110,6 +110,11 @@ RUN chmod u+x /opt/importer.sh \
  && chmod u+x /opt/filter-properties-to-xml.sh \
  && chmod u+x /init/vlo-init.sh \
  && chmod u+x /opt/querysolr.sh
+ 
+# VLO logging in /var/log/vlo
+RUN rmdir "${VLO_BASE}/log" \
+	&& mkdir '/var/log/vlo' \
+	&& ln -s '/var/log/vlo' "${VLO_BASE}/log"
 
 # Solr home should be sharable with Solr image, which uses the 'solr' user...
 RUN adduser -D -u $SOLR_UID $SOLR_USER \
