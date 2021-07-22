@@ -22,6 +22,7 @@ VLO_DOCKER_SOLR_PASSWORD_READ_WRITE .VloConfig.solrUserReadWritePass
 VLO_DOCKER_LINK_CHECKER_DB_CONNECTION_STRING .VloConfig.linkCheckerDbConnectionString
 VLO_DOCKER_LINK_CHECKER_DB_USER .VloConfig.linkCheckerDbUser
 VLO_DOCKER_LINK_CHECKER_DB_PASSWORD .VloConfig.linkCheckerDbPassword                
+VLO_DOCKER_LINK_CHECKER_DB_POOL_SIZE .VloConfig.linkCheckerDbPoolsize                
 VLO_DOCKER_CENTRE_REGISTRY_CENTRES_LIST_JSON_URL .VloConfig.centreRegistryCentresListJsonUrl
 VLO_DOCKER_CENTRE_REGISTRY_OAI_PMH_ENDPOINTS_LIST_JSON_URL .VloConfig.centreRegistryOaiPmhEndpointsListJsonUrl
 VLO_DOCKER_OTHER_PROVIDERS_MARKUP_FILE .VloConfig.otherProvidersMarkupFile
