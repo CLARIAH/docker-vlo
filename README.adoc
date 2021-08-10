@@ -393,3 +393,9 @@ Connection to link checker database for updating resource availability status:
 |
 |
 |
+
+| VLO_DOCKER_LINK_CHECKER_MAX_DAY_SINCE_CHECKED
+|
+|
+|
+|
