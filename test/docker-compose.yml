@@ -11,7 +11,7 @@ services:
     restart: "no"
   # Solr server
   vlo_solr:
-    image: registry.gitlab.com/clarin-eric/docker-solr:solr8.6-2.0.0-rc3
+    image: registry.gitlab.com/clarin-eric/docker-solr:solr8.6-2.0.0
     environment:
       - SOLR_DATA_HOME
     depends_on:
