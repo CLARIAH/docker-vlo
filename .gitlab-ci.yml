@@ -62,6 +62,8 @@ test:
 release:
   artifacts:
     untracked: true
+  dependencies:
+    - test
   only:
     - tags
     - triggers
