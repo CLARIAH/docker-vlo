@@ -1,57 +1,72 @@
-image: docker/compose:1.29.2
-services:
-  - docker:20.10.9-dind
-
 variables:
-    DOCKER_HOST: tcp://docker:2375
-    DOCKER_TLS_CERTDIR: ""
     GIT_SUBMODULE_STRATEGY: recursive
+    DOCKER_DRIVER: overlay2
+    DOCKER_HOST: tcp://docker:2376
+    DOCKER_TLS_CERTDIR: "/certs"
+    DOCKER_TLS_VERIFY: 1
+    DOCKER_CERT_PATH: "$DOCKER_TLS_CERTDIR/client"
+    # By default CLARIN build system releases images for linux/amd64,linux/arm64
+    # set BUILD_PLATFORMS variable to override this:
+    #
+    # BUILD_PLATFORMS: "linux/amd64,linux/arm64,linux/arm/v7"
+
+image: registry.gitlab.com/clarin-eric/build-image:1.3.0
+services:
+  - name: docker:20.10.12-dind
 
 stages:
   - lint
   - build
   - test
+  - security
   - release
 
-lint_dockerfile:
-  image: hadolint/hadolint:v1.23.0-1-ga556eaf-debian
+lint-dockerfile:
   stage: lint
-  script:
-    - hadolint image/Dockerfile
-    
-shell check:
-  image: koalaman/shellcheck-alpine:v0.7.2
+  script: timeout 1440 bash -x ./build.sh --lint-docker
+
+shell-check:
   stage: lint
-  script:
-    - find image \( -name "*.sh" -o -name "*.bash" \) -print0 | xargs --no-run-if-empty -0 shellcheck
+  script: timeout 1440 bash -x ./build.sh --lint-shell
 
 build:
   artifacts:
     untracked: true
-  script: timeout 1440 sh -x ./build.sh --build
+  script: timeout 1440 bash -x ./build.sh --build
   stage: build
   tags:
     - docker
-    
-test:
+
+static-vulnerability-scan:
   artifacts:
     untracked: true
-  dependencies:
-    - build
-  script: timeout 1440 sh -x ./build.sh --test
-  stage: test
+# Uncomment to run security scan only for releases
+#  only:
+#    - tags
+#    - triggers
+  script: timeout 1440 bash -x ./build.sh --scan
+  stage: security
   tags:
     - docker
+
+test:
+ artifacts:
+   untracked: true
+ dependencies:
+   - build
+ script: timeout 1440 bash -x ./build.sh --test
+ stage: test
+ tags:
+   - docker
 
 release:
   artifacts:
     untracked: true
-  dependencies:
-    - test
   only:
     - tags
     - triggers
-  script: timeout 1440 sh -x ./build.sh --release
+  script: timeout 1440 bash -x ./build.sh --release
   stage: release
   tags:
     - docker
+
