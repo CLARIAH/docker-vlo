@@ -40,6 +40,8 @@ build:
 static-vulnerability-scan:
   artifacts:
     untracked: true
+  dependencies:
+    - build
 # Uncomment to run security scan only for releases
 #  only:
 #    - tags
