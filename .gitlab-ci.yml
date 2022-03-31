@@ -38,8 +38,6 @@ build:
     - docker
 
 static-vulnerability-scan:
-  artifacts:
-    untracked: true
   dependencies:
     - build
 # Uncomment to run security scan only for releases
@@ -48,18 +46,22 @@ static-vulnerability-scan:
 #    - triggers
   script: timeout 1440 bash -x ./build.sh --scan
   stage: security
+# Change to allow scan to fail but still continue with the pipeline:
+  allow_failure: false
   tags:
     - docker
 
+# Default http test for all images descending from CLARIN docker Alpine Supervisor base image
+# Add/remove http(s) tests in checker.conf Format: <URL>;<Expected_HTTP_Status_Code>
+# Add one test per line
+# Remove or adapt for different image styles
 test:
- artifacts:
-   untracked: true
- dependencies:
-   - build
- script: timeout 1440 bash -x ./build.sh --test
- stage: test
- tags:
-   - docker
+  dependencies:
+    - build
+  script: timeout 1440 bash -x ./build.sh --test
+  stage: test
+  tags:
+    - docker
 
 release:
   only:
@@ -69,4 +71,3 @@ release:
   stage: release
   tags:
     - docker
-
