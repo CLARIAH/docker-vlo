@@ -47,8 +47,7 @@ static-vulnerability-scan:
   script: timeout 1440 bash -x ./build.sh --scan
   stage: security
 # Change to allow scan to fail but still continue with the pipeline:
-# Set to true for build towards 4.10.3_1.0.0, ignoring https://snyk.io/vuln/SNYK-ALPINE314-XZ-2445108
-  allow_failure: true
+  allow_failure: false
   tags:
     - docker
 
