@@ -47,7 +47,7 @@ static-vulnerability-scan:
   script: timeout 1440 bash -x ./build.sh --scan
   stage: security
 # Change to allow scan to fail but still continue with the pipeline:
-  allow_failure: true
+  allow_failure: false
   tags:
     - docker
 
