@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/clarin-eric/docker-alpine-supervisor-java-tomcat-base:9.0-java17_2.5.0
+FROM registry.gitlab.com/clarin-eric/docker-alpine-supervisor-java-tomcat-base:9.0-java17_2.5.1
 
 ARG JQ_VERSION=1.6
 ARG YQ_VERSION=2.13.0
