@@ -18,7 +18,7 @@ init_data () {
 		
 		if [[ "${REMOTE_RELEASE_URL}" =~ ^file.* ]]; then
 			# shellcheck disable=SC2001
-			SRC_FILE="$(echo ${REMOTE_RELEASE_URL} | sed 's/^file://')"
+			SRC_FILE="$(echo "${REMOTE_RELEASE_URL}" | sed 's/^file://')"
 			echo "Copying data from ${SRC_FILE}"
 			if ! [ -e "${SRC_FILE}" ]; then
 				echo "FATAL: source file does not exist"
