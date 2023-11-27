@@ -32,4 +32,9 @@ ignore:
         reason: None Given
         expires: 2024-11-27T14:39:32.912Z
         created: 2023-11-27T14:40:16.060Z
+  SNYK-JAVA-ORGXERIALSNAPPY-5710960:
+    - '*':
+        reason: None Given
+        expires: 2024-11-27T14:39:32.912Z
+        created: 2023-11-27T15:00:45.363Z
 patch: {}
