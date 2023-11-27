@@ -1,0 +1,35 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.25.0
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  SNYK-JAVA-ORGAPACHEZOOKEEPER-5961102:
+    - '*':
+        reason: None Given
+        expires: 2024-11-27T14:39:32.912Z
+        created: 2023-11-27T14:39:32.912Z
+  SNYK-JAVA-ORGECLIPSEJETTYHTTP2-5958918:
+    - '*':
+        reason: None Given
+        expires: 2024-11-27T14:39:32.912Z
+        created: 2023-11-27T14:39:42.120Z
+  SNYK-JAVA-ORGECLIPSEJETTYHTTP2-5958845:
+    - '*':
+        reason: None Given
+        expires: 2024-11-27T14:39:32.912Z
+        created: 2023-11-27T14:39:48.368Z
+  SNYK-JAVA-ORGECLIPSEJETTY-5958847:
+    - '*':
+        reason: None Given
+        expires: 2024-11-27T14:39:32.912Z
+        created: 2023-11-27T14:39:59.327Z
+  SNYK-JAVA-ORGJSON-5962464:
+    - '*':
+        reason: None Given
+        expires: 2024-11-27T14:39:32.912Z
+        created: 2023-11-27T14:40:08.087Z
+  SNYK-JAVA-ORGXERIALSNAPPY-5918282:
+    - '*':
+        reason: None Given
+        expires: 2024-11-27T14:39:32.912Z
+        created: 2023-11-27T14:40:16.060Z
+patch: {}
