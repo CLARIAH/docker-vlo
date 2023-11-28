@@ -2,6 +2,9 @@ FROM registry.gitlab.com/clarin-eric/docker-alpine-supervisor-java-tomcat-base:9
 
 ARG JQ_VERSION=1.6
 ARG YQ_VERSION=2.13.0
+ARG POSTGRES_JAR_VERSION=42.6.0
+ARG POSTGRES_JAR_SHA512=ec3b57d8377715ef6286d457b610a2e056aa99dbf036f750c5e07370fc8b01414b2aef5e0232d561c50f22abf0da961ee432e53734cc193a3e9bdaf6231d4fa1
+
 
 # General options
 ENV	VLO_MAPPING_DEFINITIONS_DIST_URL="https://github.com/clarin-eric/VLO-mapping/archive/master.tar.gz" \
@@ -89,9 +92,13 @@ ENV VLO_BASE="/opt/vlo"
 # Tomcat jars to skip
 ENV TOMCAT_JARS_TO_SKIP="bootstrap-*.jar,checker-qual-*.jar,cnriutil-*.jar,error_prone_annotations-*.jar,failureaccess-*.jar,FastInfoset-*.jar,gson-*.jar,guava-*-jre.jar,handle-*.jar,http2-client-*.jar,http2-common-*.jar,http2-hpack-*.jar,http2-http-client-transport-*.jar,httpcore-*.jar,httpmime-*.jar,istack-commons-runtime-*.jar,j2objc-annotations-*.jar,jackson-annotations-*.jar,jackson-core-*.jar,jackson-databind-*.jar,javax.activation-api-*.jar,javax.annotation-api-*.jar,javax.inject-1.jar,jcl-over-slf4j-*.jar,jdk-serializable-functional-*.jar,jersey-client-*.jar,jersey-core-*.jar,jettison-*.jar,joda-time-*.jar,jquery-*.jar,jquery-selectors-*.jar,json-????????.jar,json-simple-*.jar,jsr305-*.jar,jsr311-api-*.jar,listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar,modernizr-*.jar,mysql-connector-java-*.jar,netty-buffer-*.jar,netty-codec-*.jar,netty-common-*.jar,netty-handler-*.jar,netty-resolver-*.jar,netty-transport-*.jar,netty-transport-native-epoll-*.jar,netty-transport-native-unix-common-*.jar,openjson-*.jar,postgresql-*.jar,Saxon-HE-*.jar,snappy-java-1.*.jar,solr-solrj-*.jar,spring-aop-*.jar,spring-beans-*.jar,spring-context-*.jar,spring-core-*.jar,spring-expression-*.jar,spring-jcl-*.jar,spring-web-*.jar,stax-ex-*.jar,stax2-api-*.jar,txw2-*.jar,vlo-commons-*.jar,vlo-exposure-*.jar,vtd-xml-*.jar,wicket-bootstrap-core-*.jar,wicket-core-*.jar,wicket-extensions-*.jar,wicket-ioc-*.jar,wicket-jquery-ui-*.jar,wicket-jquery-ui-core-*.jar,wicket-request-*.jar,wicket-spring-*.jar,wicket-util-*.jar,wicket-webjars-*.jar,woodstox-core-*.jar,zookeeper-*.jar,zookeeper-jute-*.jar"
 
+# Install jq, yq, and a Postgres driver for Tomcat
 RUN	apk add --no-cache \
  		"jq=~${JQ_VERSION}" \
- 	&& pip --no-cache-dir install "yq==${YQ_VERSION}"
+ 	&& pip --no-cache-dir install "yq==${YQ_VERSION}" \
+ 	&& wget -q -O "${CATALINA_BASE}/lib/postgresql-${POSTGRES_JAR_VERSION}.jar" \
+			"https://jdbc.postgresql.org/download/postgresql-${POSTGRES_JAR_VERSION}.jar" \
+		&& echo "${POSTGRES_JAR_SHA512}"' *'"${CATALINA_BASE}/lib/postgresql-${POSTGRES_JAR_VERSION}.jar" | sha512sum -c -
 
 RUN rm -r "${CATALINA_BASE}/webapps/ROOT"
 
