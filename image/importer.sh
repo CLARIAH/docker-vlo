@@ -9,8 +9,12 @@ VLO_MONITOR_PROPERTIES_FILE="/opt/vlo/bin/monitor/vlo-monitor.properties"
 
 #Update mapping definitions
 if [ -n "${VLO_MAPPING_DEFINITIONS_DIST_URL}" ]; then
+  VLO_MAPPING_DEFINITIONS_DIST_URL="https://github.com/CLARIAH/VLO-mapping/archive/refs/tags/test.tar.gz"
 	cd "${VLO_MAPPING_DEFINITIONS_DIR}" && \
 	curl -L "${VLO_MAPPING_DEFINITIONS_DIST_URL}" | tar zxvf - --strip-components=1
+	echo "### okokok loading mapping from - ${VLO_MAPPING_DEFINITIONS_DIST_URL}"
+	pwd
+	ls -la
 else
 	echo "Not retrieving (updated) VLO mapping definitions!" >> "${IMPORTER_SCRIPT_LOG_FILE}"
 fi

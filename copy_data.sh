@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # shellcheck source=copy_data.env.sh
-source "${DATA_ENV_FILE:-copy_data.env.sh}"
+#source "${DATA_ENV_FILE:-copy_data.env.sh}"
 
+source copy_data_dev.env.sh
 VLO_DISTR_DIR="webapp/vlo"
 VLO_DISTR_FILE="vlo-distr.$(date +%Y%m%d%H%M%S).tar.gz"
 
@@ -18,8 +19,8 @@ init_data () {
 		
 		if [[ "${REMOTE_RELEASE_URL}" =~ ^file.* ]]; then
 			# shellcheck disable=SC2001
-			SRC_FILE="$(echo ${REMOTE_RELEASE_URL} | sed 's/^file://')"
-			echo "Copying data from ${SRC_FILE}"
+			SRC_FILE="$(echo "${REMOTE_RELEASE_URL}" | sed 's/^file://')"
+			echo "Copying data from ${SRC_FILE} to ${VLO_DISTR_FILE}"
 			if ! [ -e "${SRC_FILE}" ]; then
 				echo "FATAL: source file does not exist"
 				exit 1

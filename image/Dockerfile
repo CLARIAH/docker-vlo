@@ -4,7 +4,8 @@ ARG JQ_VERSION=1.6
 ARG YQ_VERSION=2.13.0
 
 # General options
-ENV	VLO_MAPPING_DEFINITIONS_DIST_URL="https://github.com/clarin-eric/VLO-mapping/archive/master.tar.gz" \
+ENV	VLO_MAPPING_DEFINITIONS_DIST_URL="https://github.com/CLARIAH/VLO-mapping/archive/refs/tags/test.tar.gz"\
+#	VLO_MAPPING_DEFINITIONS_DIST_URL="https://github.com/clarin-eric/VLO-mapping/archive/master.tar.gz" \
 	VLO_MAPPING_DEFINITIONS_DIR="/srv/VLO-mapping" \
 	VLO_DOCKER_WICKET_CONFIGURATION="deployment" \
 	VLO_DOCKER_WICKET_BOTTOM_SNIPPET_URL="" \
