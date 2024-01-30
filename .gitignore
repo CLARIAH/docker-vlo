@@ -3,3 +3,4 @@ image/*.tgz
 vlo-*-beta1*
 .DS_Store
 *~
+.idea

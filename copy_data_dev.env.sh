@@ -1,5 +1,6 @@
-VLO_VERSION="4.10.1-alpha-SNAPSHOT"
-REMOTE_RELEASE_URL="file:/Users/twagoo/git/VLO/vlo-distribution/target/vlo-${VLO_VERSION}-docker.tar.gz"
+#VLO_VERSION="4.10.1-alpha-SNAPSHOT"
+VLO_VERSION="4.11.2"
+REMOTE_RELEASE_URL="file:/Users/wilkos/Development/git/github/CLARIAH/VLO/vlo-distribution/target/vlo-${VLO_VERSION}-docker.tar.gz"
 NAME="vlo-${VLO_VERSION}-docker"
 #VLO_DISTR_FILE="webapp/vlo-${VLO_VERSION}-docker.tar.gz"
 #VLO_DISTR_DIR="webapp/vlo"
