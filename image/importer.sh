@@ -23,14 +23,14 @@ fi
 export IMPORTER_JAVA_OPTS="{{.env.VLO_DOCKER_IMPORTER_JAVA_OPTS}}"
 export IMPORTER_LOG_LEVEL="${VLO_DOCKER_IMPORTER_LOG_LEVEL}"
 cd /opt/vlo/bin/ && \
-nice sh vlo_solr_importer.sh -c "${VLO_DOCKER_CONFIG_FILE}" >> "${IMPORTER_SCRIPT_LOG_FILE}" 2>&1
+nice bash vlo_solr_importer.sh -c "${VLO_DOCKER_CONFIG_FILE}" >> "${IMPORTER_SCRIPT_LOG_FILE}" 2>&1
 
 #Solr index statistics
 if [ -n "${VLO_DOCKER_STATSD_HOST}" ] && [ -n "${VLO_DOCKER_STATSD_PORT}" ] && [ -n "${STATSD_PREFIX}" ]; then
 	# Filter properties in statics configuration
 	(renderizer "${STATS_CONFIG_FILE}.tmpl" > "${STATS_CONFIG_FILE}" \
 		&& cd /opt/vlo/bin/statistics/ \
-		&& nice sh start.sh "${STATS_CONFIG_FILE}" >> "${IMPORTER_SCRIPT_LOG_FILE}" 2>&1)
+		&& nice bash start.sh "${STATS_CONFIG_FILE}" >> "${IMPORTER_SCRIPT_LOG_FILE}" 2>&1)
 else
 	echo "WARNING: Not generating statistics - one or more required environment variables (VLO_DOCKER_STATSD_HOST, VLO_DOCKER_STATSD_PORT, STATSD_PREFIX) not set" \
 		| tee -a "${IMPORTER_SCRIPT_LOG_FILE}"
@@ -41,7 +41,7 @@ if [ -n "${VLO_DOCKER_MONITOR_RULES_FILE}" ]; then
 	# Filter properties in monitor configuration
 	(renderizer "${VLO_MONITOR_PROPERTIES_FILE}.tmpl" > "${VLO_MONITOR_PROPERTIES_FILE}" \
 		&& cd /opt/vlo/bin/monitor \
-		&& nice sh start.sh >> "${IMPORTER_SCRIPT_LOG_FILE}" 2>&1)
+		&& nice bash start.sh >> "${IMPORTER_SCRIPT_LOG_FILE}" 2>&1)
 else
 	echo "Warning: not running VLO monitor because required environment variable 'VLO_DOCKER_MONITOR_RULES_FILE' has not beeen set" \
 		| tee -a "${IMPORTER_SCRIPT_LOG_FILE}"
@@ -52,7 +52,7 @@ if [ -n "${VLO_DOCKER_PUBLIC_HOME_URL}" ] && [ -n "${VLO_DOCKER_SOLR_URL}" ]; th
 	# Filter properties in sitemap generator configuraiton
 	(renderizer "${SITEMAP_CONFIG_FILE}.tmpl" > "${SITEMAP_CONFIG_FILE}" \
 		&& cd /opt/vlo/bin/sitemap-generator/ \
-		&& nice sh start.sh >> "${IMPORTER_SCRIPT_LOG_FILE}" 2>&1)
+		&& nice bash start.sh >> "${IMPORTER_SCRIPT_LOG_FILE}" 2>&1)
 else
 	echo "WARNING: Not generating sitemap - one or more required environment variables (VLO_DOCKER_PUBLIC_HOME_URL, VLO_DOCKER_SOLR_URL not set" \
 		| tee -a "${IMPORTER_SCRIPT_LOG_FILE}"
