@@ -7,7 +7,7 @@ ARG POSTGRES_JAR_SHA512=ec3b57d8377715ef6286d457b610a2e056aa99dbf036f750c5e07370
 
 
 # General options
-ENV	VLO_MAPPING_DEFINITIONS_DIST_URL="https://github.com/clarin-eric/VLO-mapping/archive/master.tar.gz" \
+ENV	VLO_MAPPING_DEFINITIONS_DIST_URL="https://github.com/CLARIAH/VLO-mapping/archive/refs/tags/test.tar.gz" \
 	VLO_MAPPING_DEFINITIONS_DIR="/srv/VLO-mapping" \
 	VLO_DOCKER_WICKET_CONFIGURATION="deployment" \
 	VLO_DOCKER_WICKET_BOTTOM_SNIPPET_URL="" \
